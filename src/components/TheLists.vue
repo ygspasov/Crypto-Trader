@@ -132,9 +132,13 @@
   </v-container>
 </template>
 <script>
+import { useCriptoStore } from '@/store/index';
 export default {
   data() {
+    const store = useCriptoStore();
+    console.log(store.crypto);
     return {
+      store,
       itemsPerPageArray: [4, 8, 12],
       search: '',
       filter: {},

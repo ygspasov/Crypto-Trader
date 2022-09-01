@@ -17,12 +17,12 @@ export const useCriptoStore = defineStore('cryptoStore', {
             name: el.name,
             currency: el.currency,
             price: el.price,
-            price_date: el.price_date,
-            num_of_exchanges: el.num_exchanges,
-            market_cap: el.market_cap,
-            market_cap_dominance: el.market_cap_dominance,
+            'price date': el.price_date,
+            'number of exchanges': el.num_exchanges,
+            'market cap': el.market_cap,
+            'market cap dominance': el.market_cap_dominance,
             high: el.high,
-            high_time_stamp: el.high_timestamp,
+            'high time stamp': el.high_timestamp,
           });
         });
       console.log(this.crypto);

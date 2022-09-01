@@ -1,3 +1,3 @@
-# crypto-trader
+# Crypto Trader
 
 ## Work in progress...

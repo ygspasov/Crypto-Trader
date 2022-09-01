@@ -142,23 +142,24 @@ export default {
       itemsPerPageArray: [4, 8, 12],
       search: '',
       filter: {},
-      sortDesc: false,
+      sortDesc: true,
       page: 1,
       itemsPerPage: 4,
       sortBy: 'name',
       keys: [
-        'Name',
-        'Calories',
-        'Fat',
-        'Carbs',
-        'Protein',
-        'Sodium',
-        'Calcium',
-        'Iron',
+        'Currency',
+        'Price',
+        'price_date',
+        'num_of_exchanges',
+        'market_cap',
+        'market_cap_dominance',
+        'High',
+        'high_time_stamp',
       ],
       items: store.crypto,
     };
   },
+
   created() {
     this.crypto = this.store.loadCrypto();
   },

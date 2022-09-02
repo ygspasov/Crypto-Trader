@@ -1,5 +1,6 @@
 {
   "name": "crypto-trader",
+  "author": "Yavor Spassov",
   "version": "0.1.0",
   "private": true,
   "scripts": {

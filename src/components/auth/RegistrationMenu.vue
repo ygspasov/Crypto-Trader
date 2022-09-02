@@ -1,7 +1,13 @@
 <template>
-  <div><h1>Registration</h1></div>
+  <div>
+    <the-header></the-header>
+    <h1>Registration</h1>
+  </div>
 </template>
 <script>
-export default {};
+import TheHeader from '../header/TheHeader.vue';
+export default {
+  components: { TheHeader },
+};
 </script>
 <style></style>

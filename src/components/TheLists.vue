@@ -66,7 +66,7 @@
                   <v-list-item-content
                     :class="{ 'blue--text': sortBy === key }"
                   >
-                    {{ key }}:
+                    {{ keysRenamed[key] }}:
                   </v-list-item-content>
                   <v-list-item-content
                     class="align-end"
@@ -145,7 +145,6 @@ export default {
     const store = useCriptoStore();
     return {
       store,
-      crypto: [],
       itemsPerPageArray: [4, 8, 12],
       search: '',
       filter: {},
@@ -153,6 +152,17 @@ export default {
       page: 1,
       itemsPerPage: 4,
       sortBy: 'name',
+      //Renaming the original keys:
+      keysRenamed: {
+        currency: 'Currency',
+        price: 'Price',
+        'price date': 'Price date',
+        'number of exchanges': 'Number of exchanges',
+        'market cap': 'Market cap',
+        'market cap dominance': 'Market cap dominance',
+        high: 'High',
+        'high time stamp': 'High time stamp',
+      },
       keys: [
         'currency',
         'price',
@@ -168,7 +178,6 @@ export default {
   },
 
   created() {
-    this.crypto = [];
     this.crypto = this.store.loadCrypto();
   },
   computed: {

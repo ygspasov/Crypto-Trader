@@ -168,6 +168,7 @@ export default {
   },
 
   created() {
+    this.crypto = [];
     this.crypto = this.store.loadCrypto();
   },
   computed: {

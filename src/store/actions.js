@@ -1,11 +1,11 @@
 export default {
   async loadCrypto() {
+    this.cripto = [];
     const APIkey = process.env.VUE_APP_MY_ENV_VARIABLE;
     const response = await fetch(
       `https://api.nomics.com/v1/currencies/ticker?key=${APIkey}`
     );
     const responseData = await response.json();
-    this.cripto = [];
     responseData.forEach(el => {
       el.price_date = new Date(el.price_date).toLocaleDateString('en-us', {
         year: 'numeric',

@@ -75,6 +75,13 @@
                     {{ item[key.toLowerCase()] }}
                   </v-list-item-content>
                 </v-list-item>
+                <v-list-item
+                  ><v-btn elevation="2" @click="buyingCrypto(item.name)"
+                    >Buy</v-btn
+                  ><v-btn elevation="2" @click="sellingCrypto(item.name)"
+                    >Sell</v-btn
+                  ></v-list-item
+                >
               </v-list>
             </v-card>
           </v-col>
@@ -180,6 +187,12 @@ export default {
     },
     updateItemsPerPage(number) {
       this.itemsPerPage = number;
+    },
+    buyingCrypto(cryptoName) {
+      console.log('bying ' + cryptoName);
+    },
+    sellingCrypto(cryptoName) {
+      console.log('selling ' + cryptoName);
     },
   },
 };

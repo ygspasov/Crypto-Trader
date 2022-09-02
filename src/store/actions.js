@@ -27,6 +27,7 @@ export default {
         }
       );
       this.crypto.push({
+        id: el.id,
         name: el.name,
         currency: el.currency,
         price: el.price,

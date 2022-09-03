@@ -10,7 +10,7 @@
       hide-default-footer
     >
       <template v-slot:header>
-        <v-toolbar dark color="blue darken-3" class="mb-1">
+        <v-toolbar dark color="grey darken-3" class="mb-1">
           <v-text-field
             v-model="search"
             clearable
@@ -33,10 +33,10 @@
             ></v-select>
             <v-spacer></v-spacer>
             <v-btn-toggle v-model="sortDesc" mandatory>
-              <v-btn large depressed color="blue" :value="false">
+              <v-btn large depressed color="grey" :value="false">
                 <v-icon>mdi-arrow-up</v-icon>
               </v-btn>
-              <v-btn large depressed color="blue" :value="true">
+              <v-btn large depressed color="grey" :value="true">
                 <v-icon>mdi-arrow-down</v-icon>
               </v-btn>
             </v-btn-toggle>
@@ -64,13 +64,15 @@
               <v-list dense>
                 <v-list-item v-for="(key, index) in filteredKeys" :key="index">
                   <v-list-item-content
-                    :class="{ 'blue--text': sortBy === key }"
+                    :class="{
+                      'pink--text': sortBy === key,
+                    }"
                   >
                     {{ keysRenamed[key] }}:
                   </v-list-item-content>
                   <v-list-item-content
                     class="align-end"
-                    :class="{ 'blue--text': sortBy === key }"
+                    :class="{ 'pink--text': sortBy === key }"
                   >
                     {{ item[key.toLowerCase()] }}
                   </v-list-item-content>
@@ -124,13 +126,13 @@
           <v-btn
             fab
             dark
-            color="blue darken-3"
+            color="grey darken-3"
             class="mr-1"
             @click="formerPage"
           >
             <v-icon>mdi-chevron-left</v-icon>
           </v-btn>
-          <v-btn fab dark color="blue darken-3" class="ml-1" @click="nextPage">
+          <v-btn fab dark color="grey darken-3" class="ml-1" @click="nextPage">
             <v-icon>mdi-chevron-right</v-icon>
           </v-btn>
         </v-row>

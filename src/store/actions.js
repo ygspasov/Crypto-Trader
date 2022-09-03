@@ -1,5 +1,6 @@
 export default {
   async loadCrypto() {
+    if (this.crypto.length > 0) this.crypto = [];
     const APIkey = process.env.VUE_APP_MY_ENV_VARIABLE;
     const response = await fetch(
       `https://api.nomics.com/v1/currencies/ticker?key=${APIkey}`

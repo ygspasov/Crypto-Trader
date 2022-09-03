@@ -2,7 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import HomeView from '../views/HomeView.vue';
 import LoginMenu from '../components/auth/LoginMenu.vue';
-import RegistrationMenu from '../components/auth/RegistrationMenu.vue';
+import SignupMenu from '../components/auth/SignupMenu.vue';
 
 Vue.use(VueRouter);
 
@@ -18,9 +18,9 @@ const routes = [
     component: LoginMenu,
   },
   {
-    path: '/register',
-    name: 'register',
-    component: RegistrationMenu,
+    path: '/signup',
+    name: 'signup',
+    component: SignupMenu,
   },
 ];
 

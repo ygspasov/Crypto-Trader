@@ -1,3 +1,18 @@
+import { initializeApp } from 'firebase/app';
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from 'firebase/auth';
+const firebaseConfig = {
+  apiKey: process.env.VUE_APP_API_KEY,
+  authDomain: process.env.VUE_APP_DOMAIN,
+  databaseURL: process.env.VUE_APP_DATABASE_URL,
+  projectId: process.env.VUE_APP_PROJECT_ID,
+};
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
 export default {
   async loadCrypto() {
     if (this.crypto.length > 0) this.crypto = [];
@@ -43,5 +58,39 @@ export default {
       const error = new Error(responseData.message || 'Failed to fetch');
       throw error;
     }
+  },
+  //auth
+  signUpUser(data) {
+    const email = data.email;
+    const password = data.password;
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(userCredential => {
+        // Signed in
+        const user = userCredential.user;
+        console.log('user: ', user);
+        console.log('userCredential: ', userCredential);
+      })
+      .catch(error => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode);
+        console.log(errorMessage);
+      });
+  },
+  signInUser(data) {
+    const email = data.email;
+    const password = data.password;
+    signInWithEmailAndPassword(auth, email, password)
+      .then(userCredential => {
+        // Signed in
+        const user = userCredential.user;
+        console.log('user: ', user);
+        console.log('userCredential: ', userCredential);
+      })
+      .catch(error => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+      });
   },
 };

@@ -35,13 +35,13 @@
 </template>
 
 <script>
-import { useCriptoStore } from '@/store/index';
+import { useCryptoStore } from '@/store/index';
 import TheHeader from '../header/TheHeader.vue';
 
 export default {
   components: { TheHeader },
   data() {
-    const store = useCriptoStore();
+    const store = useCryptoStore();
     return {
       store,
       valid: true,

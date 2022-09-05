@@ -1,11 +1,14 @@
 import { defineStore } from 'pinia';
 import actions from './actions.js';
 
-export const useCriptoStore = defineStore('cryptoStore', {
+export const useCryptoStore = defineStore('cryptoStore', {
   state: () => ({
+    accessToken: '',
     crypto: [],
     users: [],
   }),
-  getters: {},
+  getters: {
+    isAuthenticated: state => state.accessToken,
+  },
   actions,
 });

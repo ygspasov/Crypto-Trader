@@ -1,5 +1,8 @@
 <template>
   <v-container fluid>
+    <v-alert color="#2A3B4D" dark icon="mdi-firework" dense v-if="alert">
+      {{ authMessage }}
+    </v-alert>
     <v-data-iterator
       :items="items"
       :items-per-page.sync="itemsPerPage"
@@ -77,7 +80,7 @@
                     {{ item[key.toLowerCase()] }}
                   </v-list-item-content>
                 </v-list-item>
-                <v-list-item
+                <v-list-item v-if="isAuthenticated"
                   ><v-btn elevation="2" @click="buyingCrypto(item.name)"
                     >Buy</v-btn
                   ><v-btn elevation="2" @click="sellingCrypto(item.name)"
@@ -140,11 +143,12 @@
     </v-data-iterator>
   </v-container>
 </template>
+
 <script>
-import { useCriptoStore } from '@/store/index';
+import { useCryptoStore } from '@/store/index';
 export default {
   data() {
-    const store = useCriptoStore();
+    const store = useCryptoStore();
     return {
       store,
       itemsPerPageArray: [4, 8, 12],
@@ -176,11 +180,15 @@ export default {
         'high time stamp',
       ],
       items: store.crypto,
+      alert: true,
     };
   },
 
   created() {
     this.crypto = this.store.loadCrypto();
+    setTimeout(() => {
+      this.alert = false;
+    }, 3000);
   },
   computed: {
     numberOfPages() {
@@ -188,6 +196,12 @@ export default {
     },
     filteredKeys() {
       return this.keys.filter(key => key !== 'Name');
+    },
+    authMessage() {
+      return this.store.isAuthenticated ? 'Signed in' : 'Not signed in';
+    },
+    isAuthenticated() {
+      return this.store.isAuthenticated;
     },
   },
   methods: {

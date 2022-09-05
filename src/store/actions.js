@@ -12,6 +12,7 @@ const firebaseConfig = {
 };
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+import { signOut } from 'firebase/auth';
 
 export default {
   async loadCrypto() {
@@ -63,12 +64,20 @@ export default {
   signUpUser(data) {
     const email = data.email;
     const password = data.password;
+    const name = data.name;
     createUserWithEmailAndPassword(auth, email, password)
       .then(userCredential => {
         // Signed in
         const user = userCredential.user;
-        console.log('user: ', user);
         console.log('userCredential: ', userCredential);
+        console.log('user.uid ', user.uid);
+        console.log('accessToken ', user.accessToken);
+        this.users.push({
+          id: user.uid,
+          name,
+          email,
+        });
+        console.log(this.users);
       })
       .catch(error => {
         const errorCode = error.code;
@@ -84,13 +93,24 @@ export default {
       .then(userCredential => {
         // Signed in
         const user = userCredential.user;
-        console.log('user: ', user);
-        console.log('userCredential: ', userCredential);
+        this.accessToken = user.accessToken;
+        console.log('login accessToken from the state: ', this.accessToken);
       })
       .catch(error => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
+      });
+  },
+  signOutUser() {
+    const auth = getAuth();
+    signOut(auth)
+      .then(() => {
+        console.log('Sign-out successful');
+        this.accessToken = '';
+      })
+      .catch(error => {
+        console.log(error);
       });
   },
 };

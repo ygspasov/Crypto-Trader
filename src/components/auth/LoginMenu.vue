@@ -19,7 +19,7 @@
       <v-text-field
         v-model="password"
         :rules="passwordRules"
-        :counter="10"
+        :counter="20"
         label="Password"
         type="password"
         required
@@ -55,7 +55,7 @@ export default {
         v => !!v || 'Password is required',
         v =>
           (v && v.length >= 4 && v.length <= 20) ||
-          'Password must be between 4 and 10 characters.',
+          'Password must be between 7 and 20 characters.',
       ],
     };
   },

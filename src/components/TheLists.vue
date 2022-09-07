@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <v-alert color="#2A3B4D" dark icon="mdi-firework" dense v-if="alert">
+    <v-alert color="#2A3B4D" dark icon="mdi-firework" dense v-if="alertSignIn">
       {{ authMessage }}
     </v-alert>
     <v-data-iterator
@@ -180,14 +180,14 @@ export default {
         'high time stamp',
       ],
       items: store.crypto,
-      alert: true,
+      alertSignIn: true,
     };
   },
 
   created() {
     this.crypto = this.store.loadCrypto();
     setTimeout(() => {
-      this.alert = false;
+      this.alertSignIn = false;
     }, 3000);
   },
   computed: {

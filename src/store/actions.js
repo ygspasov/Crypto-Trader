@@ -3,6 +3,7 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signInWithCustomToken,
 } from 'firebase/auth';
 const firebaseConfig = {
   apiKey: process.env.VUE_APP_API_KEY,
@@ -64,7 +65,6 @@ export default {
   signUpUser(data) {
     const email = data.email;
     const password = data.password;
-    const name = data.name;
     createUserWithEmailAndPassword(auth, email, password)
       .then(userCredential => {
         // Signed in
@@ -72,12 +72,6 @@ export default {
         console.log('userCredential: ', userCredential);
         console.log('user.uid ', user.uid);
         console.log('accessToken ', user.accessToken);
-        this.users.push({
-          id: user.uid,
-          name,
-          email,
-        });
-        console.log(this.users);
       })
       .catch(error => {
         const errorCode = error.code;
@@ -89,17 +83,52 @@ export default {
   signInUser(data) {
     const email = data.email;
     const password = data.password;
+    const auth = getAuth();
+
     signInWithEmailAndPassword(auth, email, password)
       .then(userCredential => {
         // Signed in
-        const user = userCredential.user;
-        this.accessToken = user.accessToken;
-        console.log('login accessToken from the state: ', this.accessToken);
+        const uid = userCredential.user.uid;
+        // const token = userCredential.user.accessToken;
+        const token = userCredential._tokenResponse.idToken;
+        console.log(
+          'userCredential._tokenResponse.idToken: ',
+          userCredential._tokenResponse.idToken
+        );
+        this.accessToken = token;
+        this.users.push({
+          uid,
+          token,
+        });
+        console.log('local users: ', this.users);
+        console.log('user: ', userCredential);
+        console.log('userCredential', userCredential);
+        localStorage.setItem('uid', uid);
+        localStorage.setItem('token', token);
       })
       .catch(error => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
+      });
+  },
+  autoLogin() {
+    const auth = getAuth();
+    let token = localStorage.getItem('token');
+    console.log('localstorage token: ', token);
+
+    signInWithCustomToken(auth, token)
+      .then(userCredential => {
+        // Signed in
+        console.log(userCredential);
+      })
+      .catch(error => {
+        console.log('catch block:');
+        const errorCode = error.code;
+        console.log(errorCode);
+        const errorMessage = error.message;
+        console.log(errorMessage);
+        // ...
       });
   },
   signOutUser() {
@@ -108,6 +137,8 @@ export default {
       .then(() => {
         console.log('Sign-out successful');
         this.accessToken = '';
+        localStorage.removeItem('token');
+        localStorage.removeItem('uid');
       })
       .catch(error => {
         console.log(error);

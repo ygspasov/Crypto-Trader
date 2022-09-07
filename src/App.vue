@@ -40,11 +40,16 @@
 </template>
 
 <script>
+import { useCryptoStore } from '@/store/index';
 export default {
   name: 'App',
 
-  data: () => ({
-    //
-  }),
+  data() {
+    const store = useCryptoStore();
+    return { store };
+  },
+  created() {
+    // this.store.autoLogin();
+  },
 };
 </script>

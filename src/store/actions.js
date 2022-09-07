@@ -96,7 +96,7 @@ export default {
     const email = data.email;
     const password = data.password;
     const auth = getAuth();
-
+    this.traderEmail = email;
     signInWithEmailAndPassword(auth, email, password)
       .then(userCredential => {
         // Signed in
@@ -162,8 +162,8 @@ export default {
       premium: false,
     });
   },
-  //Listing all the active traders from the db
-  getTraders() {
+  //Fetching all the active traders from the db
+  loadTraders() {
     const traderData = ref(db, 'traders/');
     onValue(traderData, snapshot => {
       const data = snapshot.val();

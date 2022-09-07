@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 import HomeView from '../views/HomeView.vue';
 import LoginMenu from '../components/auth/LoginMenu.vue';
 import SignupMenu from '../components/auth/SignupMenu.vue';
+import Traders from '../components/traders/TheTraders.vue';
 
 Vue.use(VueRouter);
 
@@ -21,6 +22,11 @@ const routes = [
     path: '/signup',
     name: 'signup',
     component: SignupMenu,
+  },
+  {
+    path: '/traders',
+    name: 'traders',
+    component: Traders,
   },
 ];
 

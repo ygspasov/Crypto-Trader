@@ -50,7 +50,6 @@ export default {
   },
   created() {
     // this.store.autoLogin();
-    this.store.getTraders();
   },
 };
 </script>

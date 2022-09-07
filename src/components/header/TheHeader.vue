@@ -35,11 +35,6 @@ export default {
     return {
       drawer: null,
       store,
-      items: [
-        { title: 'Dashboard', icon: 'mdi-view-dashboard' },
-        { title: 'Photos', icon: 'mdi-image' },
-        { title: 'About', icon: 'mdi-help-box' },
-      ],
     };
   },
   computed: {

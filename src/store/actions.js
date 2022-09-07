@@ -14,6 +14,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 import { signOut } from 'firebase/auth';
+import { getDatabase, ref, set, onValue } from 'firebase/database';
+const db = getDatabase();
 
 export default {
   async loadCrypto() {
@@ -65,13 +67,22 @@ export default {
   signUpUser(data) {
     const email = data.email;
     const password = data.password;
+    const name = data.name;
     createUserWithEmailAndPassword(auth, email, password)
       .then(userCredential => {
         // Signed in
         const user = userCredential.user;
+        const uid = userCredential.user.uid;
         console.log('userCredential: ', userCredential);
-        console.log('user.uid ', user.uid);
+        console.log('uid ', uid);
         console.log('accessToken ', user.accessToken);
+        this.traders.push({
+          uid,
+          name,
+          email,
+        });
+        this.createTrader(uid, name, email);
+        console.log(this.traders[0]);
       })
       .catch(error => {
         const errorCode = error.code;
@@ -79,6 +90,7 @@ export default {
         console.log(errorCode);
         console.log(errorMessage);
       });
+    this.name = name;
   },
   signInUser(data) {
     const email = data.email;
@@ -96,11 +108,7 @@ export default {
           userCredential._tokenResponse.idToken
         );
         this.accessToken = token;
-        this.users.push({
-          uid,
-          token,
-        });
-        console.log('local users: ', this.users);
+        console.log('local traders: ', this.traders);
         console.log('user: ', userCredential);
         console.log('userCredential', userCredential);
         localStorage.setItem('uid', uid);
@@ -143,5 +151,26 @@ export default {
       .catch(error => {
         console.log(error);
       });
+  },
+  //db
+  //Adding new trader to the db (called on sign up action).
+  createTrader(userId, name, email) {
+    set(ref(db, 'traders/' + userId), {
+      name,
+      email,
+      admin: false,
+      premium: false,
+    });
+  },
+  //Listing all the active traders from the db
+  getTraders() {
+    const traderData = ref(db, 'traders/');
+    onValue(traderData, snapshot => {
+      const data = snapshot.val();
+      console.log('db traders: ', data);
+      //Setting store traders to database traders
+      this.traders = data;
+      console.log('store traders: ', this.traders);
+    });
   },
 };

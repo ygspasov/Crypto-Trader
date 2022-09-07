@@ -4,8 +4,9 @@ import actions from './actions.js';
 export const useCryptoStore = defineStore('cryptoStore', {
   state: () => ({
     accessToken: '',
+    traderName: '',
     crypto: [],
-    users: [],
+    traders: [],
   }),
   getters: {
     isAuthenticated: state => state.accessToken,

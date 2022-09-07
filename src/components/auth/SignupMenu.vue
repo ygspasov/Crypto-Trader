@@ -69,8 +69,8 @@ export default {
       passwordRules: [
         v => !!v || 'Password is required',
         v =>
-          (v && v.length >= 4 && v.length <= 20) ||
-          'Password must be between 4 and 10 characters.',
+          (v && v.length >= 7 && v.length <= 20) ||
+          'Password must be between 7 and 20 characters.',
       ],
     };
   },

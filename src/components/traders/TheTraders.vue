@@ -1,8 +1,10 @@
 <template>
   <v-container fluid>
     <the-header></the-header>
-    <p v-if="isAuthenticated">Trader email: {{ traderEmail }}</p>
-    <div>{{ traders }}</div>
+    <p v-if="isAuthenticated">Welcome, {{ traderName }}</p>
+    <ul v-for="trader in traders" :key="trader.userId">
+      <li>{{ trader }}</li>
+    </ul>
   </v-container>
 </template>
 <script>
@@ -16,6 +18,7 @@ export default {
       store,
       traders: store.getTraders,
       traderEmail: store.traderEmail,
+      traderName: store.getTraderName,
       isAuthenticated: store.isAuthenticated,
     };
   },

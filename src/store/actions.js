@@ -76,13 +76,7 @@ export default {
         console.log('userCredential: ', userCredential);
         console.log('uid ', uid);
         console.log('accessToken ', user.accessToken);
-        this.traders.push({
-          uid,
-          name,
-          email,
-        });
         this.createTrader(uid, name, email);
-        console.log(this.traders[0]);
       })
       .catch(error => {
         const errorCode = error.code;
@@ -103,10 +97,6 @@ export default {
         const uid = userCredential.user.uid;
         // const token = userCredential.user.accessToken;
         const token = userCredential._tokenResponse.idToken;
-        console.log(
-          'userCredential._tokenResponse.idToken: ',
-          userCredential._tokenResponse.idToken
-        );
         this.accessToken = token;
         console.log('local traders: ', this.traders);
         console.log('user: ', userCredential);
@@ -156,6 +146,7 @@ export default {
   //Adding new trader to the db (called on sign up action).
   createTrader(userId, name, email) {
     set(ref(db, 'traders/' + userId), {
+      userId,
       name,
       email,
       admin: false,

@@ -12,7 +12,14 @@ export const useCryptoStore = defineStore('cryptoStore', {
   getters: {
     isAuthenticated: state => state.accessToken,
     getTraders: state => state.traders,
-    getTraderName: state => state.traderName,
+    getTraderName(state) {
+      let traders = state.traders;
+      for (const trader in traders) {
+        if (traders[trader].email === this.traderEmail) {
+          return traders[trader].name;
+        }
+      }
+    },
     getTraderEmail: state => state.traderEmail,
   },
   actions,

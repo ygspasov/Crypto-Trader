@@ -49,7 +49,7 @@ export default {
   },
   //auth
   ...auth,
-  //db
+  //Trader operations
   //Adding new trader to the db (called on sign up action).
   createTrader(userId, name, email) {
     set(ref(db, 'traders/' + userId), {
@@ -69,6 +69,13 @@ export default {
       //Setting store traders to database traders
       this.traders = data;
       console.log('store traders: ', this.traders);
+    });
+  },
+  //Opening a new account
+  openTraderAccount(userId, currency, amount) {
+    set(ref(db, 'users/' + userId), {
+      currency,
+      amount,
     });
   },
 };

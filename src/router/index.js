@@ -4,6 +4,7 @@ import HomeView from '../views/HomeView.vue';
 import LoginMenu from '../components/auth/LoginMenu.vue';
 import SignupMenu from '../components/auth/SignupMenu.vue';
 import Traders from '../components/traders/TheTraders.vue';
+import TraderBalance from '../components/traders/TraderBalance.vue';
 
 Vue.use(VueRouter);
 
@@ -28,6 +29,7 @@ const routes = [
     name: 'traders',
     component: Traders,
   },
+  { path: '/traders/:id', component: TraderBalance },
 ];
 
 const router = new VueRouter({

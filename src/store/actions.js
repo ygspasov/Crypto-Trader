@@ -77,6 +77,7 @@ export default {
         console.log('uid ', uid);
         console.log('accessToken ', user.accessToken);
         this.createTrader(uid, name, email);
+        this.signedUp = true;
       })
       .catch(error => {
         const errorCode = error.code;

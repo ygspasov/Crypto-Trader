@@ -3,6 +3,15 @@
     <v-alert color="#2A3B4D" dark icon="mdi-firework" dense v-if="alertSignIn">
       {{ authMessage }}
     </v-alert>
+    <v-alert
+      color="#2A3B4D"
+      dark
+      icon="mdi-firework"
+      dense
+      v-if="alertSignedUp && this.store.signedUp"
+    >
+      {{ isSignedUpMessage }}
+    </v-alert>
     <v-data-iterator
       :items="items"
       :items-per-page.sync="itemsPerPage"
@@ -181,6 +190,7 @@ export default {
       ],
       items: store.crypto,
       alertSignIn: true,
+      alertSignedUp: true,
     };
   },
 
@@ -188,7 +198,10 @@ export default {
     this.crypto = this.store.loadCrypto();
     setTimeout(() => {
       this.alertSignIn = false;
-    }, 3000);
+    }, 4000);
+    setTimeout(() => {
+      this.alertSignedUp = false;
+    }, 4000);
   },
   computed: {
     numberOfPages() {
@@ -197,11 +210,16 @@ export default {
     filteredKeys() {
       return this.keys.filter(key => key !== 'Name');
     },
+    isAuthenticated() {
+      return this.store.isAuthenticated;
+    },
     authMessage() {
       return this.store.isAuthenticated ? 'Signed in' : 'Not signed in';
     },
-    isAuthenticated() {
-      return this.store.isAuthenticated;
+    isSignedUpMessage() {
+      return this.store.signedUp
+        ? 'Successfully signed up. A new user account has been created'
+        : '';
     },
   },
   methods: {

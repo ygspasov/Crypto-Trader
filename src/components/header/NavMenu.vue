@@ -32,7 +32,7 @@
         <v-list-item-title>Traders</v-list-item-title>
       </v-list-item-content>
     </v-list-item>
-    <v-list-item link to="/traders/1" v-if="authenticated">
+    <v-list-item link to="/balance" v-if="authenticated">
       <v-list-item-icon>
         <v-icon>mdi-briefcase-account-outline</v-icon>
       </v-list-item-icon>

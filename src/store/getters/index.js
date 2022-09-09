@@ -11,4 +11,5 @@ export default {
     }
   },
   getTraderEmail: state => state.traderEmail,
+  getTraderUid: state => state.traderUid,
 };

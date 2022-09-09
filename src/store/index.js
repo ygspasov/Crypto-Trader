@@ -8,6 +8,7 @@ export const useCryptoStore = defineStore('cryptoStore', {
     signedUp: false,
     traderName: '',
     traderEmail: '',
+    traderUid: '',
     crypto: [],
     traders: [],
   }),

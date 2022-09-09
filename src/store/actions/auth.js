@@ -24,7 +24,8 @@ export default {
       .then(userCredential => {
         // Signed in
         const uid = userCredential.user.uid;
-        // const token = userCredential.user.accessToken;
+        this.traderUid = uid;
+        console.log('traderUid: ', this.traderUid);
         const token = userCredential._tokenResponse.idToken;
         this.accessToken = token;
         console.log('local traders: ', this.traders);

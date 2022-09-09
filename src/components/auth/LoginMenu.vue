@@ -88,7 +88,7 @@ export default {
   },
   computed: {
     signOutMessage() {
-      return !this.store.isAuthenticated ? 'Successfully signed out!' : '';
+      return !this.store.isAuthenticated ? 'Signed out!' : '';
     },
   },
   created() {

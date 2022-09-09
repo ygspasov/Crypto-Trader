@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <the-header></the-header>
-    <h1 class="d-flex justify-center mb-6">Sign in</h1>
+    <h1 class="d-flex justify-center mb-6, font-weight-light">Sign in</h1>
     <v-form
       class="form"
       ref="form"

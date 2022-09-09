@@ -45,10 +45,10 @@ export default {
   methods: {
     signInOut() {
       if (!this.store.isAuthenticated) {
-        this.$router.replace('./login');
+        this.$router.replace('./login').catch(() => {});
       } else {
         this.store.signOutUser();
-        this.$router.replace('/login');
+        this.$router.replace('/login').catch(() => {});
       }
     },
   },

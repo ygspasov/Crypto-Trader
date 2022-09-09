@@ -8,7 +8,7 @@
         <v-list-item-title>Home</v-list-item-title>
       </v-list-item-content>
     </v-list-item>
-    <v-list-item link to="/login">
+    <v-list-item link to="/login" v-if="!authenticated">
       <v-list-item-icon>
         <v-icon>mdi-login</v-icon>
       </v-list-item-icon>
@@ -16,7 +16,7 @@
         <v-list-item-title>Login</v-list-item-title>
       </v-list-item-content>
     </v-list-item>
-    <v-list-item link to="/signup">
+    <v-list-item link to="/signup" v-if="!authenticated">
       <v-list-item-icon>
         <v-icon>mdi-account-plus</v-icon>
       </v-list-item-icon>
@@ -24,7 +24,7 @@
         <v-list-item-title>Sign up</v-list-item-title>
       </v-list-item-content>
     </v-list-item>
-    <v-list-item link to="/traders">
+    <v-list-item link to="/traders" v-if="authenticated">
       <v-list-item-icon>
         <v-icon>mdi-briefcase-account-outline</v-icon>
       </v-list-item-icon>
@@ -35,6 +35,21 @@
   </v-list>
 </template>
 <script>
-export default {};
+import { useCryptoStore } from '@/store/index';
+
+export default {
+  data() {
+    const store = useCryptoStore();
+    return {
+      store,
+    };
+  },
+  computed: {
+    authenticated() {
+      return this.store.isAuthenticated;
+    },
+  },
+};
 </script>
+
 <style></style>

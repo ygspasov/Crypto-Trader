@@ -30,7 +30,7 @@ const routes = [
     component: Traders,
   },
   {
-    path: `/balance`,
+    path: '/:id/balance/',
     name: 'trader balance',
     component: TraderDashboard,
   },

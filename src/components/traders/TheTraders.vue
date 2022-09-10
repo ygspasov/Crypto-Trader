@@ -38,9 +38,6 @@ export default {
       isAuthenticated: store.isAuthenticated,
     };
   },
-  created() {
-    this.store.loadTraders();
-  },
   methods: {
     isPremium(premium) {
       return premium ? 'Yes' : 'No';

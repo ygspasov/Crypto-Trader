@@ -83,7 +83,7 @@ export default {
         password: this.password,
       });
       this.reset();
-      this.$router.push('./');
+      this.$router.push('/');
     },
   },
   computed: {

@@ -32,7 +32,7 @@
         <v-list-item-title>Traders</v-list-item-title>
       </v-list-item-content>
     </v-list-item>
-    <v-list-item link to="/balance" v-if="authenticated">
+    <v-list-item link :to="coachContactLink" v-if="authenticated">
       <v-list-item-icon>
         <v-icon>mdi-briefcase-account-outline</v-icon>
       </v-list-item-icon>
@@ -55,6 +55,13 @@ export default {
   computed: {
     authenticated() {
       return this.store.isAuthenticated;
+    },
+    coachContactLink() {
+      const id = this.store.getTraderUid;
+      console.log('id ', id);
+      let route = '/' + id + '/balance';
+      console.log('route: ', route);
+      return route;
     },
   },
 };

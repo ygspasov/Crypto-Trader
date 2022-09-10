@@ -2,7 +2,7 @@
   <v-container fluid>
     <the-header></the-header>
     <v-card>
-      <v-toolbar class="theme--dark" dark flat>
+      <v-toolbar dark flat>
         <v-toolbar-title>Welcome {{ traderName }}!</v-toolbar-title>
 
         <v-spacer></v-spacer>

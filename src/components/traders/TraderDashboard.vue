@@ -33,7 +33,9 @@
       <v-tabs-items v-model="tab">
         <v-tab-item v-for="i in 3" :key="i" :value="'tab-' + i">
           <v-card flat>
-            <v-card-text>{{ texts[i - 1] }}</v-card-text>
+            <v-card-text class="d-flex justify-center">{{
+              texts[i - 1]
+            }}</v-card-text>
           </v-card>
         </v-tab-item>
       </v-tabs-items>
@@ -51,8 +53,8 @@ export default {
       tab: null,
       texts: [
         'Open account with us.',
-        'Open account with us today.',
-        'Trade with us',
+        'Deposit money with us.',
+        'Trade crypto with us.',
       ],
     };
   },

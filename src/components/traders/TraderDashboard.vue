@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid>
+  <v-container fluid v-if="isAuthenticated">
     <the-header></the-header>
     <h2 class="font-weight-light d-flex justify-center mb-6">
       Welcome {{ traderName }}!
@@ -36,6 +36,21 @@
             <v-card-text class="d-flex justify-center">{{
               texts[i - 1]
             }}</v-card-text>
+            <v-row align="center" justify="space-around">
+              <v-btn depressed v-if="i === 1" class="mb-5" @click="openAccount">
+                OPEN
+              </v-btn></v-row
+            >
+            <v-row align="center" justify="space-around"
+              ><v-btn depressed v-if="i === 2" class="mb-5">
+                DEPOSIT
+              </v-btn></v-row
+            >
+            <v-row align="center" justify="space-around"
+              ><v-btn depressed v-if="i === 3" class="mb-5">
+                TRADE
+              </v-btn></v-row
+            >
           </v-card>
         </v-tab-item>
       </v-tabs-items>
@@ -52,7 +67,7 @@ export default {
       store,
       tab: null,
       texts: [
-        'Open account with us.',
+        'Open an account with us.',
         'Deposit money with us.',
         'Trade crypto with us.',
       ],
@@ -60,6 +75,9 @@ export default {
   },
   components: { TheHeader },
   computed: {
+    isAuthenticated() {
+      return this.store.isAuthenticated;
+    },
     destinationId() {
       return this.$route.params.id;
     },
@@ -68,6 +86,14 @@ export default {
     },
     traderName() {
       return this.store.getTraderName;
+    },
+  },
+  methods: {
+    openAccount() {
+      const userId = this.traderUid;
+      const currency = 'USD';
+      const amount = 9000;
+      this.store.openTraderAccount(userId, currency, amount);
     },
   },
 };

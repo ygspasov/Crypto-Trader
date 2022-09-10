@@ -1,4 +1,4 @@
-import { getDatabase, ref, set, onValue } from 'firebase/database';
+import { getDatabase, ref, set, onValue, update } from 'firebase/database';
 const db = getDatabase();
 export default {
   //Trader operations
@@ -17,17 +17,20 @@ export default {
     const traderData = ref(db, 'traders/');
     onValue(traderData, snapshot => {
       const data = snapshot.val();
-      console.log('db traders: ', data);
-      //Setting store traders to database traders
       this.traders = data;
-      console.log('store traders: ', this.traders);
     });
   },
   //Opening a new account
   openTraderAccount(userId, currency, amount) {
-    set(ref(db, 'users/' + userId), {
+    console.log('data: ', userId, currency, amount);
+    console.log('openAccount');
+    const postData = {
+      userId,
       currency,
       amount,
-    });
+    };
+    const updates = {};
+    updates['/traders/' + userId + '/accounts/'] = postData;
+    return update(ref(db), updates);
   },
 };

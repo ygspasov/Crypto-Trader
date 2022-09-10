@@ -69,7 +69,6 @@ export default {
       alertSignedOut: true,
     };
   },
-
   methods: {
     validate() {
       this.$refs.form.validate();

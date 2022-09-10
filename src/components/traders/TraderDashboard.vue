@@ -1,27 +1,39 @@
 <template>
   <v-container fluid>
     <the-header></the-header>
+    <h2 class="font-weight-light d-flex justify-center mb-6">
+      Welcome {{ traderName }}!
+    </h2>
     <v-card>
-      <v-toolbar dark flat>
-        <v-toolbar-title>Welcome {{ traderName }}!</v-toolbar-title>
+      <v-tabs
+        v-model="tab"
+        background-color="secondary accent-4"
+        centered
+        dark
+        icons-and-text
+      >
+        <v-tabs-slider></v-tabs-slider>
 
-        <v-spacer></v-spacer>
+        <v-tab href="#tab-1">
+          Open Account
+          <v-icon>mdi-bank-check</v-icon>
+        </v-tab>
 
-        <template v-slot:extension>
-          <v-tabs v-model="tab" align-with-title>
-            <v-tabs-slider color="yellow"></v-tabs-slider>
+        <v-tab href="#tab-2">
+          Deposit money
+          <v-icon>mdi-hand-coin</v-icon>
+        </v-tab>
 
-            <v-tab v-for="item in items" :key="item">
-              {{ item }}
-            </v-tab>
-          </v-tabs>
-        </template>
-      </v-toolbar>
+        <v-tab href="#tab-3">
+          Trade
+          <v-icon>mdi-briefcase-arrow-left-right</v-icon>
+        </v-tab>
+      </v-tabs>
 
       <v-tabs-items v-model="tab">
-        <v-tab-item v-for="item in items" :key="item">
+        <v-tab-item v-for="i in 3" :key="i" :value="'tab-' + i">
           <v-card flat>
-            <v-card-text v-text="text"></v-card-text>
+            <v-card-text>{{ texts[i - 1] }}</v-card-text>
           </v-card>
         </v-tab-item>
       </v-tabs-items>
@@ -37,8 +49,11 @@ export default {
     return {
       store,
       tab: null,
-      items: ['web', 'shopping', 'videos', 'images', 'news'],
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+      texts: [
+        'Open account with us.',
+        'Open account with us today.',
+        'Trade with us',
+      ],
     };
   },
   components: { TheHeader },
@@ -55,4 +70,4 @@ export default {
   },
 };
 </script>
-<style></style>
+<style scoped></style>

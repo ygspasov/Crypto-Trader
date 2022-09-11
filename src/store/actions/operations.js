@@ -5,7 +5,6 @@ export default {
   //Adding new trader to the db (called on sign up action).
   createTrader(userId, name, email) {
     set(ref(db, 'traders/' + userId), {
-      userId,
       name,
       email,
       admin: false,
@@ -22,10 +21,7 @@ export default {
   },
   //Opening a new account
   openTraderAccount(userId, currency, amount) {
-    console.log('data: ', userId, currency, amount);
-    console.log('openAccount');
     const postData = {
-      userId,
       currency,
       amount,
     };

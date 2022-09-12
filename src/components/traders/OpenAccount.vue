@@ -28,7 +28,7 @@
 
         <v-btn
           :disabled="!valid || !number"
-          color="success"
+          depressed
           class="mr-4"
           @click="openAccount"
         >
@@ -80,6 +80,10 @@ export default {
     traderUid() {
       return this.store.getTraderUid;
     },
+  },
+  created() {
+    this.store.loadSingleTraderAccounts(this.traderUid);
+    console.log('singleTraderAccounts: ', this.store.singleTraderAccounts);
   },
 };
 </script>

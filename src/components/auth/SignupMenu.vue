@@ -32,12 +32,14 @@
         type="password"
         required
       ></v-text-field>
-      <v-btn :disabled="!valid" class="mr-4" @click="submit">submit </v-btn>
-      <v-btn :disabled="!valid" color="success" class="mr-4" @click="validate">
+      <v-btn :disabled="!valid || !email" depressed class="mr-4" @click="submit"
+        >submit
+      </v-btn>
+      <v-btn :disabled="!valid" depressed class="mr-4" @click="validate">
         Validate
       </v-btn>
 
-      <v-btn color="error" class="mr-4" @click="reset"> Reset Form </v-btn>
+      <v-btn depressed class="mr-4" @click="reset"> Reset Form </v-btn>
     </v-form>
   </v-container>
 </template>

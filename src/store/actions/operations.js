@@ -21,12 +21,20 @@ export default {
   },
   //Opening a new account
   openTraderAccount(userId, currency, amount) {
-    const postData = {
-      currency,
-      amount,
-    };
     const updates = {};
-    updates['/traders/' + userId + '/accounts/'] = postData;
+    if (currency === 'USD') {
+      updates['/traders/' + userId + '/accounts/' + currency] = amount;
+    } else if (currency === 'EUR') {
+      updates['/traders/' + userId + '/accounts/' + currency] = amount;
+    }
     return update(ref(db), updates);
+  },
+  //Load all the accounts for a trader
+  loadSingleTraderAccounts(userId) {
+    const accounts = ref(db, 'traders/' + userId + '/accounts/');
+    onValue(accounts, snapshot => {
+      const traderAccounts = snapshot.val();
+      this.singleTraderAccounts = traderAccounts;
+    });
   },
 };

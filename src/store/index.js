@@ -11,6 +11,7 @@ export const useCryptoStore = defineStore('cryptoStore', {
     traderUid: '',
     crypto: [],
     traders: [],
+    singleTraderAccounts: [],
   }),
   getters,
   actions,

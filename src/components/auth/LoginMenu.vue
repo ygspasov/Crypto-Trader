@@ -33,12 +33,14 @@
         type="password"
         required
       ></v-text-field>
-      <v-btn :disabled="!valid" class="mr-4" @click="submit">submit </v-btn>
-      <v-btn :disabled="!valid" color="success" class="mr-4" @click="validate">
-        Validate
+      <v-btn
+        :disabled="!valid || !email || !password"
+        depressed
+        class="mr-4"
+        @click="submit"
+        >submit
       </v-btn>
-
-      <v-btn color="error" class="mr-4" @click="reset"> Reset Form </v-btn>
+      <v-btn class="mr-4" @click="reset" depressed> Reset Form </v-btn>
     </v-form>
   </v-container>
 </template>
@@ -70,9 +72,6 @@ export default {
     };
   },
   methods: {
-    validate() {
-      this.$refs.form.validate();
-    },
     reset() {
       this.$refs.form.reset();
     },

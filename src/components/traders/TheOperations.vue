@@ -31,11 +31,8 @@
           <v-card-text class="d-flex justify-center">{{
             texts[i - 1]
           }}</v-card-text>
-          <v-row align="center" justify="space-around">
-            <v-btn depressed v-if="i === 1" class="mb-5" @click="openAccount">
-              OPEN
-            </v-btn></v-row
-          >
+
+          <open-account v-if="i === 1"></open-account>
           <v-row align="center" justify="space-around"
             ><v-btn depressed v-if="i === 2" class="mb-5">
               DEPOSIT
@@ -50,12 +47,11 @@
   </v-card>
 </template>
 <script>
-import { useCryptoStore } from '@/store/index';
+import openAccount from './OpenAccount.vue';
 export default {
+  components: { openAccount },
   data() {
-    const store = useCryptoStore();
     return {
-      store,
       tab: null,
       texts: [
         'Open an account with us.',
@@ -64,19 +60,6 @@ export default {
       ],
     };
   },
-  computed: {
-    traderUid() {
-      return this.store.getTraderUid;
-    },
-  },
-  methods: {
-    openAccount() {
-      const userId = this.traderUid;
-      const currency = 'USD';
-      const amount = 9000;
-      this.store.openTraderAccount(userId, currency, amount);
-    },
-  },
 };
 </script>
-<style></style>
+<style scoped></style>

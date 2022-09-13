@@ -55,6 +55,14 @@
         </v-btn>
       </v-form>
     </v-row>
+    <v-row class="text-center ma-2">
+      <v-snackbar v-model="snackbar" :timeout="4000" top
+        ><span class="mr-2">{{ accountMessage }}</span>
+        <v-btn color="black" @click="snackbar = !snackbar"
+          >Close</v-btn
+        ></v-snackbar
+      >
+    </v-row>
   </v-container>
 </template>
 <script>
@@ -77,22 +85,31 @@ export default {
       selectRules: [v => !!v || 'You must agree to continue!'],
       items: ['USD', 'EUR'],
       checkbox: false,
+      accountMessage: '',
+      snackbar: false,
     };
   },
 
   methods: {
     openAccount() {
       const userId = this.traderUid;
-
       const currency = this.select;
       const amount = this.number;
-      console.log(
-        'userId ' + userId,
-        'currency ' + currency,
-        'amount ' + amount
-      );
+      this.hasAccountInCurrency(currency);
+      if (this.accountMessage) return;
       this.store.openTraderAccount(userId, currency, amount);
-      console.log('opening account');
+      this.accountMessage = `A new account in ${currency} has been created.`;
+      this.snackbar = true;
+    },
+    hasAccountInCurrency(currency) {
+      const accounts = this.store.singleTraderAccounts;
+      if (accounts && accounts.EUR && currency === 'EUR') {
+        this.accountMessage = 'You already have an account in EUR.';
+        this.snackbar = true;
+      } else if (accounts && accounts.USD && currency === 'USD') {
+        this.accountMessage = 'You already have an account in USD.';
+        this.snackbar = true;
+      }
     },
   },
   computed: {
@@ -105,7 +122,6 @@ export default {
   },
   created() {
     this.store.loadSingleTraderAccounts(this.traderUid);
-    console.log('singleTraderAccounts: ', this.store.singleTraderAccounts);
   },
 };
 </script>

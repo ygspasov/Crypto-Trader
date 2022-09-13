@@ -22,10 +22,11 @@ export default {
   //Opening a new account
   openTraderAccount(userId, currency, amount) {
     const updates = {};
+    const newAccount = { currency: currency, amount: amount };
     if (currency === 'USD') {
-      updates['/traders/' + userId + '/accounts/' + currency] = amount;
+      updates['/traders/' + userId + '/accounts/' + currency] = newAccount;
     } else if (currency === 'EUR') {
-      updates['/traders/' + userId + '/accounts/' + currency] = amount;
+      updates['/traders/' + userId + '/accounts/' + currency] = newAccount;
     }
     return update(ref(db), updates);
   },

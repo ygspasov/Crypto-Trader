@@ -28,9 +28,10 @@
     <v-tabs-items v-model="tab">
       <v-tab-item v-for="i in 3" :key="i" :value="'tab-' + i">
         <v-card flat>
-          <v-card-text class="d-flex justify-center">{{
-            texts[i - 1]
-          }}</v-card-text>
+          <v-card-text class="d-flex justify-center">
+            <span v-if="i === 1"></span><span v-else>{{ texts[i - 1] }}</span
+            >{{ openAnAccount }}</v-card-text
+          >
 
           <open-account v-if="i === 1"></open-account>
           <v-row align="center" justify="space-around"
@@ -47,11 +48,15 @@
   </v-card>
 </template>
 <script>
+import { useCryptoStore } from '@/store/index';
 import openAccount from './OpenAccount.vue';
 export default {
   components: { openAccount },
+
   data() {
+    const store = useCryptoStore();
     return {
+      store,
       tab: null,
       texts: [
         'Open an account with us.',
@@ -59,6 +64,13 @@ export default {
         'Trade crypto with us.',
       ],
     };
+  },
+  computed: {
+    openAnAccount() {
+      return this.store.singleTraderAccounts
+        ? 'Your accounts:'
+        : 'Open an account with us.';
+    },
   },
 };
 </script>

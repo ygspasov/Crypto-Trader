@@ -1,6 +1,25 @@
 <template>
   <v-container>
     <v-row class="d-flex justify-center">
+      <v-simple-table>
+        <template v-slot:default>
+          <thead>
+            <tr>
+              <th class="text-left">Currency</th>
+              <th class="text-left">Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="account in accounts" :key="account.name">
+              <td>{{ account.currency }}</td>
+              <td>{{ account.amount }}</td>
+            </tr>
+          </tbody>
+        </template>
+      </v-simple-table>
+    </v-row>
+    <v-row class="d-flex justify-center mt-10"><h3>Open an account:</h3></v-row>
+    <v-row class="d-flex justify-center">
       <v-form ref="form" v-model="valid" lazy-validation @submit="openAccount">
         <v-text-field
           v-model="number"
@@ -79,6 +98,9 @@ export default {
   computed: {
     traderUid() {
       return this.store.getTraderUid;
+    },
+    accounts() {
+      return this.store.singleTraderAccounts;
     },
   },
   created() {

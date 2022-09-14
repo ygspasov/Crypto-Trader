@@ -28,17 +28,16 @@
     <v-tabs-items v-model="tab">
       <v-tab-item v-for="i in 3" :key="i" :value="'tab-' + i">
         <v-card flat>
-          <v-card-text class="d-flex justify-center">
-            <span v-if="i === 1"></span><span v-else>{{ texts[i - 1] }}</span
-            >{{ openAnAccount }}</v-card-text
+          <v-card-text>
+            <p v-if="i === 1"></p>
+            <p v-else>{{ texts[i - 1] }}</p>
+            <p>{{ openAnAccount }}</p></v-card-text
           >
 
           <open-account v-if="i === 1"></open-account>
-          <v-row align="center" justify="space-around"
-            ><v-btn depressed v-if="i === 2" class="mb-5">
-              DEPOSIT
-            </v-btn></v-row
-          >
+          <v-row align="center" justify="space-around">
+            <deposit-money v-if="i === 2"></deposit-money
+          ></v-row>
           <v-row align="center" justify="space-around"
             ><v-btn depressed v-if="i === 3" class="mb-5"> TRADE </v-btn></v-row
           >
@@ -50,8 +49,9 @@
 <script>
 import { useCryptoStore } from '@/store/index';
 import openAccount from './OpenAccount.vue';
+import depositMoney from './DepositMoney.vue';
 export default {
-  components: { openAccount },
+  components: { openAccount, depositMoney },
 
   data() {
     const store = useCryptoStore();
@@ -74,4 +74,8 @@ export default {
   },
 };
 </script>
-<style scoped></style>
+<style scoped>
+.v-card__text {
+  text-align: center;
+}
+</style>

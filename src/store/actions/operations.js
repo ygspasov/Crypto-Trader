@@ -1,5 +1,7 @@
 import { getDatabase, ref, set, onValue, update } from 'firebase/database';
 const db = getDatabase();
+import uniqid from 'uniqid';
+console.log(uniqid());
 export default {
   //Trader operations
   //Adding new trader to the db (called on sign up action).
@@ -19,14 +21,14 @@ export default {
       this.traders = data;
     });
   },
-  //Opening a new account
+  //Open a new account or update an existing one
   openTraderAccount(userId, currency, amount) {
     const updates = {};
-    const newAccount = { currency: currency, amount: amount };
+    const accountUpdate = { currency: currency, amount: amount };
     if (currency === 'USD') {
-      updates['/traders/' + userId + '/accounts/' + currency] = newAccount;
+      updates['/traders/' + userId + '/accounts/' + currency] = accountUpdate;
     } else if (currency === 'EUR') {
-      updates['/traders/' + userId + '/accounts/' + currency] = newAccount;
+      updates['/traders/' + userId + '/accounts/' + currency] = accountUpdate;
     }
     return update(ref(db), updates);
   },

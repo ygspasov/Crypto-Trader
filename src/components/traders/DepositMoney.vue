@@ -18,9 +18,9 @@
         </template>
       </v-simple-table>
     </v-row>
-    <v-row class="d-flex justify-center mt-10"><h3>Open an account:</h3></v-row>
+    <v-row class="d-flex justify-center mt-10"><h3>Deposit money:</h3></v-row>
     <v-row class="d-flex justify-center">
-      <v-form ref="form" v-model="valid" lazy-validation @submit="openAccount">
+      <v-form ref="form" v-model="valid" lazy-validation @submit="depositMoney">
         <v-text-field
           v-model="number"
           :counter="10"
@@ -38,20 +38,13 @@
           required
         ></v-select>
 
-        <v-checkbox
-          v-model="checkbox"
-          :rules="selectRules"
-          label="Do you agree to open an account?"
-          required
-        ></v-checkbox>
-
         <v-btn
           :disabled="!valid || !number"
           depressed
           class="mr-4"
-          @click="openAccount"
+          @click="depositMoney"
         >
-          Open account
+          Deposit money
         </v-btn>
       </v-form>
     </v-row>
@@ -82,33 +75,35 @@ export default {
       ],
       currencyRules: [v => !!v || 'Item is required'],
       select: null,
-      selectRules: [v => !!v || 'You must agree to continue!'],
+
       items: ['USD', 'EUR'],
-      checkbox: false,
+
       accountMessage: '',
       snackbar: false,
     };
   },
   methods: {
-    openAccount() {
+    depositMoney() {
       this.accountMessage = '';
       const userId = this.traderUid;
       const currency = this.select;
-      const amount = this.number;
-      this.hasAccountInCurrency(currency);
+      const amount = Number(this.number);
+      let update = 0; //deposit + balance
+      currency === 'USD'
+        ? (update = Number(this.store.singleTraderAccounts.USD.amount) + amount)
+        : (update =
+            Number(this.store.singleTraderAccounts.EUR.amount) + amount);
+      this.hasAccountInCurrency(currency, amount);
       this.reset();
-      if (this.accountMessage) return;
-      this.store.openTraderAccount(userId, currency, amount);
-      this.accountMessage = `A new account in ${currency} has been created.`;
-      this.snackbar = true;
+      this.store.openTraderAccount(userId, currency, update);
     },
-    hasAccountInCurrency(currency) {
+    hasAccountInCurrency(currency, amount) {
       const accounts = this.store.singleTraderAccounts;
       if (accounts && accounts.EUR && currency === 'EUR') {
-        this.accountMessage = 'You already have an account in EUR.';
+        this.accountMessage = `You EUR account has been credited with EUR ${amount}.`;
         this.snackbar = true;
       } else if (accounts && accounts.USD && currency === 'USD') {
-        this.accountMessage = 'You already have an account in USD.';
+        this.accountMessage = `You USD account has been credited with USD ${amount}.`;
         this.snackbar = true;
       }
     },

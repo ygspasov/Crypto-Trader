@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row class="d-flex justify-center">
-      <v-simple-table>
+      <v-simple-table v-if="accounts">
         <template v-slot:default>
           <thead>
             <tr>
@@ -18,7 +18,9 @@
         </template>
       </v-simple-table>
     </v-row>
-    <v-row class="d-flex justify-center mt-10"><h3>Open an account:</h3></v-row>
+    <v-row class="d-flex justify-center mt-10" v-if="!accounts"
+      ><h3>Open an account:</h3></v-row
+    >
     <v-row class="d-flex justify-center">
       <v-form ref="form" v-model="valid" lazy-validation @submit="openAccount">
         <v-text-field

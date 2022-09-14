@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row class="d-flex justify-center">
-      <v-simple-table>
+      <v-simple-table v-if="accounts">
         <template v-slot:default>
           <thead>
             <tr>
@@ -70,8 +70,8 @@ export default {
       numberRules: [
         v => !!v || 'Number is required',
         v =>
-          (v && v.length >= 3 && v.length <= 10) ||
-          'The number must be between 3 and 10 characters',
+          (v && v.length >= 3 && v.length <= 10 && v >= 100) ||
+          'The number must be between 3 and 10 characters and at least 100 USD/EUR.',
       ],
       currencyRules: [v => !!v || 'Item is required'],
       select: null,
@@ -89,15 +89,33 @@ export default {
       const currency = this.select;
       const amount = Number(this.number);
       let update = 0; //deposit + balance
-      currency === 'USD'
-        ? (update = Number(this.store.singleTraderAccounts.USD.amount) + amount)
-        : (update =
-            Number(this.store.singleTraderAccounts.EUR.amount) + amount);
-      this.hasAccountInCurrency(currency, amount);
+      this.displayCreditInfo(currency, amount);
+      //Checks for the existence of accounts and displays messages. Prevents a deposit if no accounts exist.
+      if (!this.store.singleTraderAccounts) {
+        this.accountMessage = `You don't have an account. You should first open one.`;
+        this.snackbar = true;
+        return;
+      }
+      if (!this.store.singleTraderAccounts.USD && currency === 'USD') {
+        this.accountMessage = 'No account in USD. You should first open one.';
+        this.snackbar = !this.snackbar;
+        return;
+      } else if (currency === 'USD') {
+        update = Number(this.store.singleTraderAccounts.USD.amount) + amount;
+      }
+
+      if (!this.store.singleTraderAccounts.EUR && currency === 'EUR') {
+        this.accountMessage = 'No account in EUR. You should first open one.';
+        this.snackbar = !this.snackbar;
+        return;
+      } else if (currency === 'EUR') {
+        update = Number(this.store.singleTraderAccounts.EUR.amount) + amount;
+      }
       this.reset();
       this.store.openTraderAccount(userId, currency, update);
     },
-    hasAccountInCurrency(currency, amount) {
+    //Displays messages after an account has been credited.
+    displayCreditInfo(currency, amount) {
       const accounts = this.store.singleTraderAccounts;
       if (accounts && accounts.EUR && currency === 'EUR') {
         this.accountMessage = `You EUR account has been credited with EUR ${amount}.`;

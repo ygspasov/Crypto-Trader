@@ -89,13 +89,12 @@
                     {{ item[key.toLowerCase()] }}
                   </v-list-item-content>
                 </v-list-item>
-                <v-list-item v-if="isAuthenticated"
-                  ><v-btn elevation="2" @click="buyingCrypto(item.name)"
+                <v-list-item v-if="isAuthenticated">
+                  <!-- <v-btn elevation="2" @click="buyingCrypto(item.name)"
                     >Buy</v-btn
-                  ><v-btn elevation="2" @click="sellingCrypto(item.name)"
-                    >Sell</v-btn
-                  ></v-list-item
-                >
+                  > -->
+                  <trade-popup :itemName="item.name"></trade-popup
+                ></v-list-item>
               </v-list>
             </v-card>
           </v-col>
@@ -155,7 +154,9 @@
 
 <script>
 import { useCryptoStore } from '@/store/index';
+import tradePopup from './popups/tradePopup.vue';
 export default {
+  components: { tradePopup },
   data() {
     const store = useCryptoStore();
     return {
@@ -248,9 +249,6 @@ export default {
         amount,
         opType
       );
-    },
-    sellingCrypto(cryptoName) {
-      console.log('selling ' + cryptoName);
     },
   },
 };

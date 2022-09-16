@@ -221,6 +221,9 @@ export default {
         ? 'Successfully signed up. A new user account has been created'
         : '';
     },
+    traderUid() {
+      return this.store.getTraderUid;
+    },
   },
   methods: {
     nextPage() {
@@ -232,8 +235,19 @@ export default {
     updateItemsPerPage(number) {
       this.itemsPerPage = number;
     },
-    buyingCrypto(cryptoName) {
-      console.log('bying ' + cryptoName);
+    buyingCrypto(cryptoName, price) {
+      const userId = this.traderUid;
+      const opType = 'purchase';
+      const amount = 300;
+      const currency = 'USD';
+      this.store.tradeOperation(
+        userId,
+        currency,
+        cryptoName,
+        price,
+        amount,
+        opType
+      );
     },
     sellingCrypto(cryptoName) {
       console.log('selling ' + cryptoName);

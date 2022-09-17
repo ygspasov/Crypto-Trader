@@ -11,7 +11,34 @@
           <v-card>
             <v-toolbar color="secondary" dark>Trade {{ itemName }}</v-toolbar>
             <v-card-text>
-              <div class="text-h2 pa-12">Buy/Sell/Trade</div>
+              <v-container fluid>
+                <v-row align="center">
+                  <v-col cols="6">
+                    <h3>Operation:</h3>
+                  </v-col>
+
+                  <v-col cols="6">
+                    <v-select
+                      v-model="select"
+                      :hint="`${select.operation}`"
+                      :items="items"
+                      item-text="operation"
+                      label="Select"
+                      return-object
+                      single-line
+                    ></v-select>
+                  </v-col>
+                </v-row>
+                <v-col cols="12"
+                  ><v-row
+                    ><v-text-field
+                      label="Quantity"
+                      :rules="rules"
+                      hide-details="auto"
+                      v-model="quantity"
+                    ></v-text-field></v-row
+                ></v-col>
+              </v-container>
             </v-card-text>
             <v-card-actions class="justify-end">
               <v-btn text @click="dialog.value = false">Close</v-btn>
@@ -25,9 +52,31 @@
 
 <script>
 export default {
-  props: ['itemName'],
+  props: ['itemName', 'userId', 'currency', 'price'],
   data() {
-    return {};
+    return {
+      select: { operation: 'Buying' },
+      items: [{ operation: 'Buying' }, { operation: 'Selling' }],
+      rules: [
+        value => !!value || 'Required.',
+        value => (value && value >= 0.1) || 'Min 0.1',
+      ],
+      quantity: 0,
+    };
+  },
+  methods: {
+    buyingCrypto(cryptoName, price) {
+      const opType = 'purchase';
+      const amount = 300;
+      this.store.tradeOperation(
+        this.userId,
+        this.currency,
+        cryptoName,
+        price,
+        amount,
+        opType
+      );
+    },
   },
 };
 </script>

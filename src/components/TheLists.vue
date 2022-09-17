@@ -90,10 +90,12 @@
                   </v-list-item-content>
                 </v-list-item>
                 <v-list-item v-if="isAuthenticated">
-                  <!-- <v-btn elevation="2" @click="buyingCrypto(item.name)"
-                    >Buy</v-btn
-                  > -->
-                  <trade-popup :itemName="item.name"></trade-popup
+                  <trade-popup
+                    :itemName="item.name"
+                    :userId="traderUid"
+                    :currency="item.currency"
+                    :price="item.price"
+                  ></trade-popup
                 ></v-list-item>
               </v-list>
             </v-card>
@@ -235,20 +237,6 @@ export default {
     },
     updateItemsPerPage(number) {
       this.itemsPerPage = number;
-    },
-    buyingCrypto(cryptoName, price) {
-      const userId = this.traderUid;
-      const opType = 'purchase';
-      const amount = 300;
-      const currency = 'USD';
-      this.store.tradeOperation(
-        userId,
-        currency,
-        cryptoName,
-        price,
-        amount,
-        opType
-      );
     },
   },
 };

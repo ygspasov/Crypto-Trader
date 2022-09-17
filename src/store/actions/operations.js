@@ -42,8 +42,9 @@ export default {
     const updates = {};
     const accountUpdate = { cryptoName, amount };
     if (opType === 'purchase') {
-      updates['/traders/' + userId + '/accounts/' + currency + '/' + opId] =
-        accountUpdate;
+      updates[
+        '/traders/' + userId + '/accounts/' + currency + '/transactions/' + opId
+      ] = accountUpdate;
     } else {
       return;
     }

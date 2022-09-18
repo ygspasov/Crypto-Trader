@@ -29,6 +29,23 @@
                     ></v-select>
                   </v-col>
                 </v-row>
+                <v-row align="center">
+                  <v-col cols="6">
+                    <h3>Choose account:</h3>
+                  </v-col>
+
+                  <v-col cols="6">
+                    <v-select
+                      v-model="selectAccount"
+                      :hint="`${selectAccount.currency}`"
+                      :items="itemsAccount"
+                      item-text="currency"
+                      label="selectAccount"
+                      return-object
+                      single-line
+                    ></v-select>
+                  </v-col>
+                </v-row>
                 <v-col cols="12"
                   ><v-row
                     ><v-text-field
@@ -47,6 +64,23 @@
               <v-btn text @click="dialog.value = false">Close</v-btn>
             </v-card-actions>
           </v-card>
+          <div class="text-center">
+            <!-- <v-btn dark @click="snackbar = true"> Open Snackbar </v-btn> -->
+            <v-snackbar v-model="snackbar" :timeout="4000">
+              {{ accountMessage }}
+
+              <template v-slot:action="{ attrs }">
+                <v-btn
+                  color="black"
+                  accountMessage
+                  v-bind="attrs"
+                  @click="snackbar = false"
+                >
+                  Close
+                </v-btn>
+              </template>
+            </v-snackbar>
+          </div>
         </template>
       </v-dialog>
     </v-col>
@@ -63,17 +97,21 @@ export default {
       store,
       select: { operation: 'Buying' },
       items: [{ operation: 'Buying' }, { operation: 'Selling' }],
+      selectAccount: { currency: 'USD' },
+      itemsAccount: [{ currency: 'USD' }, { currency: 'EUR' }],
       rules: [
         value => !!value || 'Required.',
         value => (value && value >= 0.1) || 'Min 0.1',
       ],
       amount: 0,
+      snackbar: false,
+      accountMessage: ``,
     };
   },
   methods: {
     buyingCrypto() {
+      this.accountCheck();
       let oldBalance = this.store.singleTraderAccounts.USD.amount;
-      console.log('oldBalance ', oldBalance);
       this.store.tradeOperation(
         this.userId,
         this.currency,
@@ -83,6 +121,28 @@ export default {
         oldBalance,
         this.select.operation
       );
+    },
+    accountCheck() {
+      if (!this.store.singleTraderAccounts) {
+        this.accountMessage = `You don't have an account. You should first open one.`;
+        this.snackbar = true;
+        return;
+      } else if (!this.store.singleTraderAccounts.USD) {
+        this.accountMessage = 'No account in USD. You should first open one.';
+        this.snackbar = !this.snackbar;
+        return;
+      } else if (
+        this.store.singleTraderAccounts.USD.amount <
+        this.price * this.amount
+      ) {
+        this.accountMessage =
+          "You don't have enough money. Consider a deposit.";
+        this.snackbar = !this.snackbar;
+        return;
+      } else {
+        this.accountMessage = 'Purchase successful.';
+        this.snackbar = !this.snackbar;
+      }
     },
   },
   created() {

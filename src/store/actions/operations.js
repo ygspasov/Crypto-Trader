@@ -36,18 +36,41 @@ export default {
     });
   },
   //Conducting varios trade operations
-  tradeOperation(userId, currency, cryptoName, price, amount, opType) {
-    console.log('buying ' + cryptoName);
+  tradeOperation(
+    userId,
+    currency,
+    cryptoName,
+    price,
+    amount,
+    oldBalance,
+    opType
+  ) {
     const opId = uniqid();
     const updates = {};
     const accountUpdate = { cryptoName, amount };
-    if (opType === 'purchase') {
-      updates[
-        '/traders/' + userId + '/accounts/' + currency + '/transactions/' + opId
-      ] = accountUpdate;
-    } else {
-      return;
+    updates['/traders/' + userId + '/accounts/transactions/' + opId] =
+      accountUpdate;
+    this.updateTraderAccount(
+      userId,
+      currency,
+      amount,
+      price,
+      oldBalance,
+      opType
+    );
+    console.log(opType);
+    return update(ref(db), updates);
+  },
+  //Debit ot credit a trader account
+  updateTraderAccount(userId, currency, amount, price, oldBalance, opType) {
+    const updates = {};
+    console.log(userId, currency, amount, price, oldBalance, opType);
+    const newBalance = +oldBalance - amount * price;
+    if (opType === 'Buying') {
+      const accountUpdate = { currency: 'USD', amount: newBalance };
+      updates['/traders/' + userId + '/accounts/' + 'USD'] = accountUpdate;
     }
+
     return update(ref(db), updates);
   },
 };

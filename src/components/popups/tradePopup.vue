@@ -32,12 +32,15 @@
                 <v-col cols="12"
                   ><v-row
                     ><v-text-field
-                      label="Quantity"
+                      label="Amount"
                       :rules="rules"
                       hide-details="auto"
-                      v-model="quantity"
+                      v-model="amount"
                     ></v-text-field></v-row
                 ></v-col>
+                <v-col cols="12" class="mt-10">
+                  <v-btn depressed @click="buyingCrypto"> Trade </v-btn></v-col
+                >
               </v-container>
             </v-card-text>
             <v-card-actions class="justify-end">
@@ -51,32 +54,39 @@
 </template>
 
 <script>
+import { useCryptoStore } from '@/store/index';
 export default {
   props: ['itemName', 'userId', 'currency', 'price'],
   data() {
+    const store = useCryptoStore();
     return {
+      store,
       select: { operation: 'Buying' },
       items: [{ operation: 'Buying' }, { operation: 'Selling' }],
       rules: [
         value => !!value || 'Required.',
         value => (value && value >= 0.1) || 'Min 0.1',
       ],
-      quantity: 0,
+      amount: 0,
     };
   },
   methods: {
-    buyingCrypto(cryptoName, price) {
-      const opType = 'purchase';
-      const amount = 300;
+    buyingCrypto() {
+      let oldBalance = this.store.singleTraderAccounts.USD.amount;
+      console.log('oldBalance ', oldBalance);
       this.store.tradeOperation(
         this.userId,
         this.currency,
-        cryptoName,
-        price,
-        amount,
-        opType
+        this.itemName,
+        this.price,
+        this.amount,
+        oldBalance,
+        this.select.operation
       );
     },
+  },
+  created() {
+    this.store.loadSingleTraderAccounts(this.userId);
   },
 };
 </script>

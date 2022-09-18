@@ -110,39 +110,37 @@ export default {
   },
   methods: {
     buyingCrypto() {
-      this.accountCheck();
-      let oldBalance = this.store.singleTraderAccounts.USD.amount;
+      const currency = this.selectAccount.currency;
+      if (!this.store.singleTraderAccounts) {
+        this.accountMessage = `You don't have an account. You should first open one.`;
+        this.snackbar = true;
+        return false;
+      } else if (!this.store.singleTraderAccounts[currency]) {
+        this.accountMessage = `No account in ${currency}. You should first open one.`;
+        this.snackbar = !this.snackbar;
+        return false;
+      } else if (
+        this.store.singleTraderAccounts[currency].amount <
+        this.price * this.amount
+      ) {
+        this.accountMessage =
+          "You don't have enough money. Consider a deposit.";
+        this.snackbar = !this.snackbar;
+        return false;
+      } else {
+        this.accountMessage = 'Purchase successful.';
+        this.snackbar = !this.snackbar;
+      }
+      let oldBalance = this.store.singleTraderAccounts[currency].amount;
       this.store.tradeOperation(
         this.userId,
-        this.currency,
+        currency,
         this.itemName,
         this.price,
         this.amount,
         oldBalance,
         this.select.operation
       );
-    },
-    accountCheck() {
-      if (!this.store.singleTraderAccounts) {
-        this.accountMessage = `You don't have an account. You should first open one.`;
-        this.snackbar = true;
-        return;
-      } else if (!this.store.singleTraderAccounts.USD) {
-        this.accountMessage = 'No account in USD. You should first open one.';
-        this.snackbar = !this.snackbar;
-        return;
-      } else if (
-        this.store.singleTraderAccounts.USD.amount <
-        this.price * this.amount
-      ) {
-        this.accountMessage =
-          "You don't have enough money. Consider a deposit.";
-        this.snackbar = !this.snackbar;
-        return;
-      } else {
-        this.accountMessage = 'Purchase successful.';
-        this.snackbar = !this.snackbar;
-      }
     },
   },
   created() {

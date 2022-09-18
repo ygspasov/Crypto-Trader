@@ -67,8 +67,8 @@ export default {
     console.log(userId, currency, amount, price, oldBalance, opType);
     const newBalance = +oldBalance - amount * price;
     if (opType === 'Buying') {
-      const accountUpdate = { currency: 'USD', amount: newBalance };
-      updates['/traders/' + userId + '/accounts/' + 'USD'] = accountUpdate;
+      const accountUpdate = { currency, amount: newBalance };
+      updates['/traders/' + userId + '/accounts/' + currency] = accountUpdate;
     }
 
     return update(ref(db), updates);

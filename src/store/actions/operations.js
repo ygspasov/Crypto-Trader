@@ -1,6 +1,8 @@
 import { getDatabase, ref, set, onValue, update } from 'firebase/database';
 const db = getDatabase();
 import uniqid from 'uniqid';
+import moment from 'moment';
+
 export default {
   //Trader operations
   //Adding new trader to the db (called on sign up action).
@@ -23,8 +25,9 @@ export default {
   //Open a new account or update an existing one
   openTraderAccount(userId, currency, amount) {
     amount = Number(amount);
+    const openedOn = moment().format('MMMM Do YYYY, h:mm:ss a');
     const updates = {};
-    const accountUpdate = { currency: currency, amount: amount };
+    const accountUpdate = { currency, amount, openedOn };
     updates['/traders/' + userId + '/accounts/' + currency] = accountUpdate;
     return update(ref(db), updates);
   },
@@ -47,8 +50,9 @@ export default {
     opType
   ) {
     const opId = uniqid();
+    const dateOfOperation = moment().format('MMMM Do YYYY, h:mm:ss a');
     const updates = {};
-    const accountUpdate = { cryptoName, amount, opType };
+    const accountUpdate = { cryptoName, amount, opType, dateOfOperation };
     updates['/traders/' + userId + '/accounts/transactions/' + opId] =
       accountUpdate;
     this.updateTraderAccount(

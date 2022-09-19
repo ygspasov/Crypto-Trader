@@ -12,6 +12,7 @@
     "@vue/composition-api": "^1.7.0",
     "core-js": "^3.8.3",
     "firebase": "^9.9.4",
+    "moment": "^2.29.4",
     "pinia": "^2.0.21",
     "uniqid": "^5.4.0",
     "vue": "^2.6.14",

@@ -56,7 +56,9 @@
                     ></v-text-field></v-row
                 ></v-col>
                 <v-col cols="12" class="mt-10">
-                  <v-btn depressed @click="buyingCrypto"> Trade </v-btn></v-col
+                  <v-btn depressed @click="buyingCrypto">
+                    {{ select.operation }} {{ itemName }}</v-btn
+                  ></v-col
                 >
               </v-container>
             </v-card-text>
@@ -95,8 +97,8 @@ export default {
     const store = useCryptoStore();
     return {
       store,
-      select: { operation: 'Buying' },
-      items: [{ operation: 'Buying' }, { operation: 'Selling' }],
+      select: { operation: 'Buy' },
+      items: [{ operation: 'Buy' }, { operation: 'Sell' }],
       selectAccount: { currency: 'USD' },
       itemsAccount: [{ currency: 'USD' }, { currency: 'EUR' }],
       rules: [

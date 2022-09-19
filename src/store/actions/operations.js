@@ -22,6 +22,7 @@ export default {
   },
   //Open a new account or update an existing one
   openTraderAccount(userId, currency, amount) {
+    amount = Number(amount);
     const updates = {};
     const accountUpdate = { currency: currency, amount: amount };
     updates['/traders/' + userId + '/accounts/' + currency] = accountUpdate;
@@ -47,7 +48,7 @@ export default {
   ) {
     const opId = uniqid();
     const updates = {};
-    const accountUpdate = { cryptoName, amount };
+    const accountUpdate = { cryptoName, amount, opType };
     updates['/traders/' + userId + '/accounts/transactions/' + opId] =
       accountUpdate;
     this.updateTraderAccount(
@@ -64,9 +65,25 @@ export default {
   //Debit ot credit a trader account
   updateTraderAccount(userId, currency, amount, price, oldBalance, opType) {
     const updates = {};
-    console.log(userId, currency, amount, price, oldBalance, opType);
-    const newBalance = +oldBalance - amount * price;
-    if (opType === 'Buying') {
+    console.log(
+      'updateTraderAccount:',
+      userId,
+      currency,
+      amount,
+      price,
+      oldBalance,
+      opType
+    );
+    //Exchanging the EUR into USD
+    if (currency === 'EUR') amount = amount * 0.998578;
+    //Recalculating the trader balance in accordance with the type of operation.
+    let newBalance;
+    if (opType === 'Buy') {
+      newBalance = +oldBalance - amount * price;
+      const accountUpdate = { currency, amount: newBalance };
+      updates['/traders/' + userId + '/accounts/' + currency] = accountUpdate;
+    } else if (opType === 'Sell') {
+      newBalance = +oldBalance + amount * price;
       const accountUpdate = { currency, amount: newBalance };
       updates['/traders/' + userId + '/accounts/' + currency] = accountUpdate;
     }

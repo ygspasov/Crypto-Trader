@@ -12,7 +12,7 @@
           <tbody>
             <tr v-for="account in accounts" :key="account.name">
               <td>{{ account.currency }}</td>
-              <td>{{ account.amount }}</td>
+              <td>{{ account.amount.toLocaleString('en-EN') }}</td>
             </tr>
           </tbody>
         </template>

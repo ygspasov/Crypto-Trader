@@ -13,7 +13,7 @@
             <tr v-for="account in accounts" :key="account.name">
               <td>{{ account.currency }}</td>
               <td>
-                {{ account.amount.toLocaleString('en-EN') }}
+                {{ accountValue(account.amount) }}
               </td>
             </tr>
           </tbody>
@@ -129,6 +129,14 @@ export default {
     },
     reset() {
       this.$refs.form.reset();
+    },
+    accountValue(v) {
+      return v !== undefined
+        ? v.toLocaleString('en-EN', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          })
+        : '';
     },
   },
   computed: {

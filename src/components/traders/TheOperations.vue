@@ -39,9 +39,9 @@
             <deposit-money v-if="i === 2"></deposit-money
           ></v-row>
           <v-row align="center" justify="space-around"
-            ><trade-crypto depressed v-if="i === 3" class="mb-5">
+            ><purchased-crypto depressed v-if="i === 3" class="mb-5">
               TRADE
-            </trade-crypto></v-row
+            </purchased-crypto></v-row
           >
         </v-card>
       </v-tab-item>
@@ -52,9 +52,9 @@
 import { useCryptoStore } from '@/store/index';
 import openAccount from './operations/OpenAccount.vue';
 import depositMoney from './operations/DepositMoney.vue';
-import tradeCrypto from './operations/TradeCrypto.vue';
+import PurchasedCrypto from './operations/PurchasedCrypto.vue';
 export default {
-  components: { openAccount, depositMoney, tradeCrypto },
+  components: { openAccount, depositMoney, PurchasedCrypto },
 
   data() {
     const store = useCryptoStore();

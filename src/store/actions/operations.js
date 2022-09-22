@@ -46,9 +46,19 @@ export default {
       'traders/' + userId + '/accounts/transactions/'
     );
     onValue(singleTraderPurchases, snapshot => {
+      this.singleTraderPurchases = [];
       const traderPurchases = snapshot.val();
-      this.singleTraderPurchases = traderPurchases;
-      console.log('singleTraderPurchases: ', this.singleTraderPurchases);
+      for (const key in traderPurchases) {
+        this.singleTraderPurchases.unshift({
+          cryptoName: traderPurchases[key].cryptoName,
+          amount: traderPurchases[key].amount,
+          opType: traderPurchases[key].opType,
+          dateOfOperation: traderPurchases[key].dateOfOperation,
+          paidForIn: traderPurchases[key].paidForIn,
+          priceOnTrade: traderPurchases[key].priceOnTrade,
+          opId: traderPurchases[key].opId,
+        });
+      }
     });
   },
   //Conducting varios trade operations
@@ -71,6 +81,7 @@ export default {
       dateOfOperation,
       paidForIn: currency,
       priceOnTrade: price,
+      opId,
     };
     updates['/traders/' + userId + '/accounts/transactions/' + opId] =
       accountUpdate;
@@ -82,7 +93,7 @@ export default {
       oldBalance,
       opType
     );
-    console.log(opType);
+    this.updateCryptoPortfolio(userId, cryptoName, amount, opType);
     return update(ref(db), updates);
   },
   //Debit ot credit a trader account
@@ -111,6 +122,32 @@ export default {
       updates['/traders/' + userId + '/accounts/' + currency] = accountUpdate;
     }
 
+    return update(ref(db), updates);
+  },
+  //Create and update a crypto portfolio
+  updateCryptoPortfolio(userId, cryptoName, amount, opType) {
+    let oldBalance = ref(
+      db,
+      '/traders/' + userId + '/accounts/portfolio/' + cryptoName + '/amount'
+    );
+    let traderBalance = 0;
+    onValue(oldBalance, snapshot => {
+      traderBalance = snapshot.val() || 0;
+    });
+    amount = Number(amount);
+    opType === 'Buy'
+      ? (amount += traderBalance)
+      : (amount = traderBalance - amount);
+
+    const lastUpdate = moment().format('MMMM Do YYYY, h:mm:ss a');
+    const updates = {};
+    const accountUpdate = {
+      cryptoName,
+      lastUpdate,
+      amount,
+    };
+    updates['/traders/' + userId + '/accounts/portfolio/' + cryptoName] =
+      accountUpdate;
     return update(ref(db), updates);
   },
 };

@@ -1,11 +1,10 @@
 <template>
   <div>
-    <h1>Purchases: {{ purchases }}</h1>
     <v-data-table
       dense
       :headers="headers"
-      :items="desserts"
-      item-key="name"
+      :items="purchases"
+      item-key="opId"
       class="elevation-1"
     ></v-data-table>
   </div>
@@ -102,16 +101,17 @@ export default {
       ],
       headers: [
         {
-          text: 'Dessert (100g serving)',
+          text: 'Crypto',
           align: 'start',
           sortable: false,
-          value: 'name',
+          value: 'cryptoName',
         },
-        { text: 'Calories', value: 'calories' },
-        { text: 'Fat (g)', value: 'fat' },
-        { text: 'Carbs (g)', value: 'carbs' },
-        { text: 'Protein (g)', value: 'protein' },
-        { text: 'Iron (%)', value: 'iron' },
+        { text: 'Amount', value: 'amount' },
+        { text: 'Type', value: 'opType' },
+        { text: 'Date', value: 'dateOfOperation' },
+        { text: 'currency', value: 'paidForIn' },
+        { text: 'price', value: 'priceOnTrade' },
+        { text: 'referrence', value: 'opId' },
       ],
       purchases: store.singleTraderPurchases,
     };

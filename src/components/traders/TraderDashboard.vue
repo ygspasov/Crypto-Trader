@@ -32,6 +32,7 @@ export default {
   },
   created() {
     this.store.loadSingleTraderPurchases(this.store.traderUid);
+    this.store.loadSingleTraderPortfolio(this.store.traderUid);
   },
 };
 </script>

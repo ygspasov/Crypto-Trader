@@ -33,13 +33,20 @@ export default {
   },
   //Load all the accounts for a trader
   loadSingleTraderAccounts(userId) {
+    this.singleTraderAccounts = [];
     const accounts = ref(db, 'traders/' + userId + '/accounts/');
     onValue(accounts, snapshot => {
       const traderAccounts = snapshot.val();
-      this.singleTraderAccounts = traderAccounts;
+      console.log('traderAccounts ', traderAccounts);
+      if (traderAccounts.EUR)
+        this.singleTraderAccounts.push(traderAccounts.EUR);
+      if (traderAccounts.USD)
+        this.singleTraderAccounts.push(traderAccounts.USD);
+      // this.singleTraderAccounts = traderAccounts;
     });
+    console.log('singleTraderAccounts ', this.singleTraderAccounts);
   },
-  //Load
+  //Load trader purchases
   loadSingleTraderPurchases(userId) {
     const singleTraderPurchases = ref(
       db,
@@ -149,5 +156,23 @@ export default {
     updates['/traders/' + userId + '/accounts/portfolio/' + cryptoName] =
       accountUpdate;
     return update(ref(db), updates);
+  },
+  //Load single trader portfolio
+  loadSingleTraderPortfolio() {
+    const userId = this.traderUid;
+    console.log('userId ', userId);
+    const singleTraderPurchases = ref(
+      db,
+      '/traders/' + userId + '/accounts/portfolio/'
+    );
+    onValue(singleTraderPurchases, snapshot => {
+      this.singleTraderPortfolio = [];
+      const traderPortfolio = snapshot.val();
+      console.log('traderPortfolio ', traderPortfolio);
+      // for (const key in traderPortfolio) {
+      //   this.singleTraderPortfolio.unshift({
+      //     cryptoName: traderPurchases[key].cryptoName,
+      //   });
+    });
   },
 };

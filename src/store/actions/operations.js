@@ -37,13 +37,23 @@ export default {
     const accounts = ref(db, 'traders/' + userId + '/accounts/');
     onValue(accounts, snapshot => {
       const traderAccounts = snapshot.val();
+<<<<<<< HEAD
       if (traderAccounts && traderAccounts.EUR)
         this.singleTraderAccounts.push(traderAccounts.EUR);
       if (traderAccounts && traderAccounts.USD)
+<<<<<<< HEAD
         console.log('traderAccounts ', traderAccounts);
       if (traderAccounts.EUR)
         this.singleTraderAccounts.push(traderAccounts.EUR);
       if (traderAccounts.USD)
+=======
+=======
+      console.log('traderAccounts ', traderAccounts);
+      if (traderAccounts.EUR)
+        this.singleTraderAccounts.push(traderAccounts.EUR);
+      if (traderAccounts.USD)
+>>>>>>> ab0fe46e373b0fbd4fef11cdfb89ea13624583e6
+>>>>>>> a7123f9fac73ce49cc17edc70944fda62b94bf9f
         this.singleTraderAccounts.push(traderAccounts.USD);
       // this.singleTraderAccounts = traderAccounts;
     });

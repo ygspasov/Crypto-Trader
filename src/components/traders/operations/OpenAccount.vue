@@ -12,15 +12,15 @@
           <tbody>
             <tr v-for="account in accounts" :key="account.name">
               <td>{{ account.currency }}</td>
-              <td>{{ account.amount.toLocaleString('en-EN') }}</td>
+              <td>{{ accountValue(account.amount) }}</td>
             </tr>
           </tbody>
         </template>
       </v-simple-table>
     </v-row>
     <v-row class="d-flex justify-center mt-10" v-if="!accounts"
-      ><h3>Open an account:</h3></v-row
-    >
+      ><h3>Open an account:</h3>
+    </v-row>
     <v-row class="d-flex justify-center">
       <v-form ref="form" v-model="valid" lazy-validation @submit="openAccount">
         <v-text-field
@@ -103,19 +103,27 @@ export default {
       this.store.openTraderAccount(userId, currency, amount);
       this.accountMessage = `A new account in ${currency} has been created.`;
       this.snackbar = true;
+      this.store.loadSingleTraderAccounts(this.traderUid);
     },
     hasAccountInCurrency(currency) {
       const accounts = this.store.singleTraderAccounts;
-      if (accounts && accounts.EUR && currency === 'EUR') {
-        this.accountMessage = 'You already have an account in EUR.';
-        this.snackbar = true;
-      } else if (accounts && accounts.USD && currency === 'USD') {
-        this.accountMessage = 'You already have an account in USD.';
-        this.snackbar = true;
-      }
+      accounts.forEach(element => {
+        if (accounts && element.currency === currency) {
+          this.accountMessage = `You already have an account in ${currency}.`;
+          this.snackbar = true;
+        }
+      });
     },
     reset() {
       this.$refs.form.reset();
+    },
+    accountValue(v) {
+      return v !== undefined
+        ? v.toLocaleString('en-EN', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          })
+        : '';
     },
   },
   computed: {
@@ -128,6 +136,7 @@ export default {
   },
   created() {
     this.store.loadSingleTraderAccounts(this.traderUid);
+    console.log('accounts ', this.accounts);
   },
 };
 </script>

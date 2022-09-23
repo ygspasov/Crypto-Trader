@@ -20,18 +20,22 @@
       </v-tab>
 
       <v-tab href="#tab-3">
-        Trade
+        Trades
         <v-icon>mdi-briefcase-arrow-left-right</v-icon>
+      </v-tab>
+
+      <v-tab href="#tab-4">
+        Portfolio
+        <v-icon>mdi-wallet</v-icon>
       </v-tab>
     </v-tabs>
 
     <v-tabs-items v-model="tab">
-      <v-tab-item v-for="i in 3" :key="i" :value="'tab-' + i">
+      <v-tab-item v-for="i in 4" :key="i" :value="'tab-' + i">
         <v-card flat>
           <v-card-text>
-            <p v-if="i === 1"></p>
-            <p v-else>{{ texts[i - 1] }}</p>
-            <p>{{ openAnAccount }}</p></v-card-text
+            <h3 v-if="i !== 1" class="mb-5">{{ texts[i - 1] }}</h3>
+            <p v-if="i !== 3 && i !== 4">{{ openAnAccount }}</p></v-card-text
           >
 
           <open-account v-if="i === 1"></open-account>
@@ -39,10 +43,11 @@
             <deposit-money v-if="i === 2"></deposit-money
           ></v-row>
           <v-row align="center" justify="space-around"
-            ><trade-crypto depressed v-if="i === 3" class="mb-5">
+            ><purchased-crypto depressed v-if="i === 3" class="mb-5">
               TRADE
-            </trade-crypto></v-row
+            </purchased-crypto></v-row
           >
+          <v-row align="center" justify="space-around"></v-row>
         </v-card>
       </v-tab-item>
     </v-tabs-items>
@@ -52,9 +57,9 @@
 import { useCryptoStore } from '@/store/index';
 import openAccount from './operations/OpenAccount.vue';
 import depositMoney from './operations/DepositMoney.vue';
-import tradeCrypto from './operations/TradeCrypto.vue';
+import PurchasedCrypto from './operations/PurchasedCrypto.vue';
 export default {
-  components: { openAccount, depositMoney, tradeCrypto },
+  components: { openAccount, depositMoney, PurchasedCrypto },
 
   data() {
     const store = useCryptoStore();
@@ -64,7 +69,8 @@ export default {
       texts: [
         'Open an account with us.',
         'Deposit money with us.',
-        'Trade crypto with us.',
+        'Your trades:',
+        'Your crypto portfolio:',
       ],
     };
   },

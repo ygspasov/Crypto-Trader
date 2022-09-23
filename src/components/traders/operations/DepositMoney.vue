@@ -13,7 +13,7 @@
             <tr v-for="account in accounts" :key="account.name">
               <td>{{ account.currency }}</td>
               <td>
-                {{ account.amount.toLocaleString('en-EN') }}
+                {{ accountValue(account.amount) }}
               </td>
             </tr>
           </tbody>
@@ -87,48 +87,56 @@ export default {
   methods: {
     depositMoney() {
       this.accountMessage = '';
+      let checkAccounts = true;
       const userId = this.traderUid;
       const currency = this.select;
       const amount = Number(this.number);
       let update = 0; //deposit + balance
-      this.displayCreditInfo(currency, amount);
-      //Checks for the existence of accounts and displays messages. Prevents a deposit if no accounts exist.
-      if (!this.store.singleTraderAccounts) {
-        this.accountMessage = `You don't have an account. You should first open one.`;
-        this.snackbar = true;
-        return;
-      }
-      if (!this.store.singleTraderAccounts.USD && currency === 'USD') {
-        this.accountMessage = 'No account in USD. You should first open one.';
-        this.snackbar = !this.snackbar;
-        return;
-      } else if (currency === 'USD') {
-        update = Number(this.store.singleTraderAccounts.USD.amount) + amount;
-      }
+      const accounts = this.store.singleTraderAccounts;
+      accounts.forEach(element => {
+        //Checks for the existence of accounts and displays messages. Prevents a deposit if no accounts exist.
 
-      if (!this.store.singleTraderAccounts.EUR && currency === 'EUR') {
-        this.accountMessage = 'No account in EUR. You should first open one.';
-        this.snackbar = !this.snackbar;
-        return;
-      } else if (currency === 'EUR') {
-        update = Number(this.store.singleTraderAccounts.EUR.amount) + amount;
-      }
+        if (accounts.length === 0 || !element.currency) {
+          console.log('accounts ', accounts);
+          this.accountMessage = `No account in ${currency}. You should first open one.`;
+          this.snackbar = true;
+          checkAccounts = false;
+        } else {
+          console.log('element.currency ', element.currency);
+          console.log('element.amount ', element.amount);
+          console.log('amount ', amount);
+          update = Number(element.amount) + amount;
+          console.log('update ', update);
+        }
+      });
+      if (!checkAccounts) return;
+      this.displayCreditInfo(currency, amount);
       this.reset();
       this.store.openTraderAccount(userId, currency, update);
+      console.log('opening');
+      this.store.loadSingleTraderAccounts(this.traderUid);
     },
     //Displays messages after an account has been credited.
     displayCreditInfo(currency, amount) {
       const accounts = this.store.singleTraderAccounts;
-      if (accounts && accounts.EUR && currency === 'EUR') {
+      if (accounts && currency === 'EUR') {
         this.accountMessage = `You EUR account has been credited with EUR ${amount}.`;
         this.snackbar = true;
-      } else if (accounts && accounts.USD && currency === 'USD') {
+      } else if (accounts && currency === 'USD') {
         this.accountMessage = `You USD account has been credited with USD ${amount}.`;
         this.snackbar = true;
       }
     },
     reset() {
       this.$refs.form.reset();
+    },
+    accountValue(v) {
+      return v !== undefined
+        ? v.toLocaleString('en-EN', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          })
+        : '';
     },
   },
   computed: {

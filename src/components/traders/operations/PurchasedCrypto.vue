@@ -1,16 +1,22 @@
 <template>
-  <v-data-table
-    dense
-    :headers="headers"
-    :items="desserts"
-    item-key="name"
-    class="elevation-1"
-  ></v-data-table>
+  <div>
+    <v-data-table
+      dense
+      :headers="headers"
+      :items="purchases"
+      item-key="opId"
+      class="elevation-1"
+    ></v-data-table>
+  </div>
 </template>
 <script>
+import { useCryptoStore } from '@/store/index';
 export default {
   data() {
+    const store = useCryptoStore();
     return {
+      store,
+      traderUid: '',
       desserts: [
         {
           name: 'Frozen Yogurt',
@@ -95,18 +101,24 @@ export default {
       ],
       headers: [
         {
-          text: 'Dessert (100g serving)',
+          text: 'Crypto',
           align: 'start',
           sortable: false,
-          value: 'name',
+          value: 'cryptoName',
         },
-        { text: 'Calories', value: 'calories' },
-        { text: 'Fat (g)', value: 'fat' },
-        { text: 'Carbs (g)', value: 'carbs' },
-        { text: 'Protein (g)', value: 'protein' },
-        { text: 'Iron (%)', value: 'iron' },
+        { text: 'Amount', value: 'amount' },
+        { text: 'Type', value: 'opType' },
+        { text: 'Date', value: 'dateOfOperation' },
+        { text: 'currency', value: 'paidForIn' },
+        { text: 'price', value: 'priceOnTrade' },
+        { text: 'referrence', value: 'opId' },
       ],
+      purchases: store.singleTraderPurchases,
     };
+  },
+  created() {
+    this.traderUid = this.store.traderUid;
+    this.store.loadSingleTraderPurchases(this.traderUid);
   },
 };
 </script>

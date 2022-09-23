@@ -1,5 +1,6 @@
 <template>
 <<<<<<< HEAD:src/components/traders/operations/TradeCrypto.vue
+<<<<<<< HEAD:src/components/traders/operations/TradeCrypto.vue
   <v-data-table
     dense
     :headers="headers"
@@ -19,11 +20,26 @@
     ></v-data-table>
   </div>
 >>>>>>> parent of cc4e2d5... Creating and updating a crypto portfolio with the amount of crypto bought/sold.:src/components/traders/operations/PurchasedCrypto.vue
+=======
+  <div>
+    <v-data-table
+      dense
+      :headers="headers"
+      :items="purchases"
+      item-key="opId"
+      class="elevation-1"
+    ></v-data-table>
+  </div>
+>>>>>>> 817aa5479d8059f7f58d0d8fcd24a8066dec378d:src/components/traders/operations/PurchasedCrypto.vue
 </template>
 <script>
+import { useCryptoStore } from '@/store/index';
 export default {
   data() {
+    const store = useCryptoStore();
     return {
+      store,
+      traderUid: '',
       desserts: [
         {
           name: 'Frozen Yogurt',
@@ -108,18 +124,24 @@ export default {
       ],
       headers: [
         {
-          text: 'Dessert (100g serving)',
+          text: 'Crypto',
           align: 'start',
           sortable: false,
-          value: 'name',
+          value: 'cryptoName',
         },
-        { text: 'Calories', value: 'calories' },
-        { text: 'Fat (g)', value: 'fat' },
-        { text: 'Carbs (g)', value: 'carbs' },
-        { text: 'Protein (g)', value: 'protein' },
-        { text: 'Iron (%)', value: 'iron' },
+        { text: 'Amount', value: 'amount' },
+        { text: 'Type', value: 'opType' },
+        { text: 'Date', value: 'dateOfOperation' },
+        { text: 'currency', value: 'paidForIn' },
+        { text: 'price', value: 'priceOnTrade' },
+        { text: 'referrence', value: 'opId' },
       ],
+      purchases: store.singleTraderPurchases,
     };
+  },
+  created() {
+    this.traderUid = this.store.traderUid;
+    this.store.loadSingleTraderPurchases(this.traderUid);
   },
 };
 </script>

@@ -30,6 +30,10 @@ export default {
       return this.store.getTraderName;
     },
   },
+  created() {
+    this.store.loadSingleTraderPurchases(this.store.traderUid);
+    this.store.loadSingleTraderPortfolio(this.store.traderUid);
+  },
 };
 </script>
 <style scoped></style>

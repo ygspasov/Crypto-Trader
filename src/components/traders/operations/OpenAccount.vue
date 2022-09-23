@@ -106,11 +106,8 @@ export default {
     },
     hasAccountInCurrency(currency) {
       const accounts = this.store.singleTraderAccounts;
-      if (accounts && accounts.EUR && currency === 'EUR') {
-        this.accountMessage = 'You already have an account in EUR.';
-        this.snackbar = true;
-      } else if (accounts && accounts.USD && currency === 'USD') {
-        this.accountMessage = 'You already have an account in USD.';
+      if (accounts && accounts[currency]) {
+        this.accountMessage = `You already have an account in ${currency}.`;
         this.snackbar = true;
       }
     },

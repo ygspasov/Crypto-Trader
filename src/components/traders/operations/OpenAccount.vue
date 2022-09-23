@@ -1,7 +1,7 @@
 <template>
   <v-container>
-    <v-row class="d-flex justify-center">
-      <v-simple-table v-if="accounts">
+    <v-row class="d-flex justify-center" v-if="hasAccount">
+      <v-simple-table>
         <template v-slot:default>
           <thead>
             <tr>
@@ -19,8 +19,8 @@
       </v-simple-table>
     </v-row>
     <v-row class="d-flex justify-center mt-10" v-if="!accounts"
-      ><h3>Open an account:</h3>
-    </v-row>
+      ><h3>Open an account:</h3></v-row
+    >
     <v-row class="d-flex justify-center">
       <v-form ref="form" v-model="valid" lazy-validation @submit="openAccount">
         <v-text-field
@@ -103,16 +103,16 @@ export default {
       this.store.openTraderAccount(userId, currency, amount);
       this.accountMessage = `A new account in ${currency} has been created.`;
       this.snackbar = true;
-      this.store.loadSingleTraderAccounts(this.traderUid);
     },
     hasAccountInCurrency(currency) {
       const accounts = this.store.singleTraderAccounts;
-      accounts.forEach(element => {
-        if (accounts && element.currency === currency) {
-          this.accountMessage = `You already have an account in ${currency}.`;
-          this.snackbar = true;
-        }
-      });
+      if (accounts && accounts.EUR && currency === 'EUR') {
+        this.accountMessage = 'You already have an account in EUR.';
+        this.snackbar = true;
+      } else if (accounts && accounts.USD && currency === 'USD') {
+        this.accountMessage = 'You already have an account in USD.';
+        this.snackbar = true;
+      }
     },
     reset() {
       this.$refs.form.reset();
@@ -133,10 +133,12 @@ export default {
     accounts() {
       return this.store.singleTraderAccounts;
     },
+    hasAccount() {
+      return Object.keys(this.store.singleTraderAccounts).length !== 0;
+    },
   },
   created() {
     this.store.loadSingleTraderAccounts(this.traderUid);
-    console.log('accounts ', this.accounts);
   },
 };
 </script>

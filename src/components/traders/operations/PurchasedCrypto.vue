@@ -1,26 +1,4 @@
 <template>
-<<<<<<< HEAD:src/components/traders/operations/TradeCrypto.vue
-<<<<<<< HEAD:src/components/traders/operations/TradeCrypto.vue
-  <v-data-table
-    dense
-    :headers="headers"
-    :items="desserts"
-    item-key="name"
-    class="elevation-1"
-  ></v-data-table>
-=======
-  <div>
-    <h1>Purchases: {{ purchases }}</h1>
-    <v-data-table
-      dense
-      :headers="headers"
-      :items="desserts"
-      item-key="name"
-      class="elevation-1"
-    ></v-data-table>
-  </div>
->>>>>>> parent of cc4e2d5... Creating and updating a crypto portfolio with the amount of crypto bought/sold.:src/components/traders/operations/PurchasedCrypto.vue
-=======
   <div>
     <v-data-table
       dense
@@ -30,7 +8,6 @@
       class="elevation-1"
     ></v-data-table>
   </div>
->>>>>>> 817aa5479d8059f7f58d0d8fcd24a8066dec378d:src/components/traders/operations/PurchasedCrypto.vue
 </template>
 <script>
 import { useCryptoStore } from '@/store/index';

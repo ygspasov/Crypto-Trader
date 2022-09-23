@@ -40,6 +40,10 @@ export default {
       if (traderAccounts && traderAccounts.EUR)
         this.singleTraderAccounts.push(traderAccounts.EUR);
       if (traderAccounts && traderAccounts.USD)
+        console.log('traderAccounts ', traderAccounts);
+      if (traderAccounts.EUR)
+        this.singleTraderAccounts.push(traderAccounts.EUR);
+      if (traderAccounts.USD)
         this.singleTraderAccounts.push(traderAccounts.USD);
       // this.singleTraderAccounts = traderAccounts;
     });

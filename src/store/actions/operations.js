@@ -39,6 +39,18 @@ export default {
       this.singleTraderAccounts = traderAccounts;
     });
   },
+  //Load
+  loadSingleTraderPurchases(userId) {
+    const singleTraderPurchases = ref(
+      db,
+      'traders/' + userId + '/accounts/transactions/'
+    );
+    onValue(singleTraderPurchases, snapshot => {
+      const traderPurchases = snapshot.val();
+      this.singleTraderPurchases = traderPurchases;
+      console.log('singleTraderPurchases: ', this.singleTraderPurchases);
+    });
+  },
   //Conducting varios trade operations
   tradeOperation(
     userId,
@@ -53,6 +65,14 @@ export default {
     const dateOfOperation = moment().format('MMMM Do YYYY, h:mm:ss a');
     const updates = {};
     const accountUpdate = { cryptoName, amount, opType, dateOfOperation };
+    const accountUpdate = {
+      cryptoName,
+      amount,
+      opType,
+      dateOfOperation,
+      paidForIn: currency,
+      priceOnTrade: price,
+    };
     updates['/traders/' + userId + '/accounts/transactions/' + opId] =
       accountUpdate;
     this.updateTraderAccount(

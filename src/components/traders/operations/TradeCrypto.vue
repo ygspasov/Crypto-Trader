@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD:src/components/traders/operations/TradeCrypto.vue
   <v-data-table
     dense
     :headers="headers"
@@ -6,6 +7,18 @@
     item-key="name"
     class="elevation-1"
   ></v-data-table>
+=======
+  <div>
+    <h1>Purchases: {{ purchases }}</h1>
+    <v-data-table
+      dense
+      :headers="headers"
+      :items="desserts"
+      item-key="name"
+      class="elevation-1"
+    ></v-data-table>
+  </div>
+>>>>>>> parent of cc4e2d5... Creating and updating a crypto portfolio with the amount of crypto bought/sold.:src/components/traders/operations/PurchasedCrypto.vue
 </template>
 <script>
 export default {

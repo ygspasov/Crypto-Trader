@@ -27,9 +27,10 @@ export default {
         { text: 'Amount', value: 'amount' },
         { text: 'Type', value: 'opType' },
         { text: 'Date', value: 'dateOfOperation' },
-        { text: 'currency', value: 'paidForIn' },
-        { text: 'price', value: 'priceOnTrade' },
-        { text: 'referrence', value: 'opId' },
+        { text: 'Currency', value: 'paidForIn' },
+        { text: 'Price per 1', value: 'priceOnTrade' },
+        { text: 'Total price', value: 'totalPrice' },
+        { text: 'Referrence', value: 'opId' },
       ],
       purchases: store.singleTraderPurchases,
     };
@@ -37,6 +38,7 @@ export default {
   created() {
     this.traderUid = this.store.traderUid;
     this.store.loadSingleTraderPurchases(this.traderUid);
+    console.log(this.store.singleTraderPurchases);
   },
 };
 </script>

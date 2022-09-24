@@ -59,6 +59,7 @@ export default {
           dateOfOperation: traderPurchases[key].dateOfOperation,
           paidForIn: traderPurchases[key].paidForIn,
           priceOnTrade: traderPurchases[key].priceOnTrade,
+          totalPrice: Number(traderPurchases[key].totalPrice).toFixed(2),
           opId: traderPurchases[key].opId,
         });
       }
@@ -84,6 +85,7 @@ export default {
       dateOfOperation,
       paidForIn: currency,
       priceOnTrade: price,
+      totalPrice: price * amount,
       opId,
     };
     updates['/traders/' + userId + '/accounts/transactions/' + opId] =

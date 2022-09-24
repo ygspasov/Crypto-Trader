@@ -50,13 +50,19 @@
                   ><v-row
                     ><v-text-field
                       label="Amount"
-                      :rules="rules"
+                      :counter="1"
                       hide-details="auto"
                       v-model="amount"
+                      type="number"
+                      required
                     ></v-text-field></v-row
                 ></v-col>
                 <v-col cols="12" class="mt-10">
-                  <v-btn depressed @click="buyingCrypto">
+                  <v-btn
+                    depressed
+                    @click="buyingCrypto"
+                    :disabled="checkAmount"
+                  >
                     {{ select.operation }} {{ itemName }}</v-btn
                   ></v-col
                 >
@@ -67,7 +73,6 @@
             </v-card-actions>
           </v-card>
           <div class="text-center">
-            <!-- <v-btn dark @click="snackbar = true"> Open Snackbar </v-btn> -->
             <v-snackbar v-model="snackbar" :timeout="4000">
               {{ accountMessage }}
 
@@ -101,10 +106,6 @@ export default {
       items: [{ operation: 'Buy' }, { operation: 'Sell' }],
       selectAccount: { currency: 'USD' },
       itemsAccount: [{ currency: 'USD' }, { currency: 'EUR' }],
-      rules: [
-        value => !!value || 'Required.',
-        value => (value && value >= 0.1) || 'Min 0.1',
-      ],
       amount: 0,
       snackbar: false,
       accountMessage: ``,
@@ -143,6 +144,12 @@ export default {
         oldBalance,
         this.select.operation
       );
+      this.amount = 0;
+    },
+  },
+  computed: {
+    checkAmount() {
+      return isNaN(this.amount) || this.amount <= 0 ? true : false;
     },
   },
   created() {

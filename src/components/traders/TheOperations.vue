@@ -47,7 +47,13 @@
               TRADE
             </purchased-crypto></v-row
           >
-          <v-row align="center" justify="space-around"></v-row>
+          <v-row align="center" justify="space-around"
+            ><the-portfolio
+              depressed
+              v-if="i === 4"
+              class="mb-5"
+            ></the-portfolio
+          ></v-row>
         </v-card>
       </v-tab-item>
     </v-tabs-items>
@@ -55,11 +61,12 @@
 </template>
 <script>
 import { useCryptoStore } from '@/store/index';
-import openAccount from './operations/OpenAccount.vue';
-import depositMoney from './operations/DepositMoney.vue';
+import OpenAccount from './operations/OpenAccount.vue';
+import DepositMoney from './operations/DepositMoney.vue';
 import PurchasedCrypto from './operations/PurchasedCrypto.vue';
+import ThePortfolio from './operations/ThePortfolio.vue';
 export default {
-  components: { openAccount, depositMoney, PurchasedCrypto },
+  components: { OpenAccount, DepositMoney, PurchasedCrypto, ThePortfolio },
 
   data() {
     const store = useCryptoStore();

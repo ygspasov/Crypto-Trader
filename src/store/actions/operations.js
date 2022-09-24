@@ -36,11 +36,9 @@ export default {
     const accounts = ref(db, 'traders/' + userId + '/accounts/');
     onValue(accounts, snapshot => {
       const traderAccounts = snapshot.val();
-      console.log('loadSingleTraderAccounts ', traderAccounts);
       let update = {};
       if (traderAccounts && traderAccounts.EUR) update.EUR = traderAccounts.EUR;
       if (traderAccounts && traderAccounts.USD) update.USD = traderAccounts.USD;
-      console.log('update ', update);
       this.singleTraderAccounts = update;
     });
   },
@@ -154,5 +152,36 @@ export default {
     updates['/traders/' + userId + '/accounts/portfolio/' + cryptoName] =
       accountUpdate;
     return update(ref(db), updates);
+  },
+  //Load single trader portfolio
+  loadSingleTraderPortfolio() {
+    const userId = this.traderUid;
+    console.log('userId ', userId);
+    const singleTraderPurchases = ref(
+      db,
+      '/traders/' + userId + '/accounts/portfolio/'
+    );
+    onValue(singleTraderPurchases, snapshot => {
+      this.singleTraderPortfolio = [];
+      const traderPortfolio = snapshot.val();
+      const portfolio = [];
+      for (const key in traderPortfolio) {
+        portfolio.push({
+          cryptoName: traderPortfolio[key].cryptoName,
+          amount: traderPortfolio[key].amount,
+        });
+      }
+      //Summing amounts of the same crypto (aggregating values)
+      const result = Object.values(
+        portfolio.reduce((acc, item) => {
+          acc[item.cryptoName] = acc[item.cryptoName]
+            ? { ...item, amount: item.amount + acc[item.cryptoName].amount }
+            : item;
+          return acc;
+        }, {})
+      );
+      this.singleTraderPortfolio = result;
+      console.log('singleTraderPortfolio: ', this.singleTraderPortfolio);
+    });
   },
 };

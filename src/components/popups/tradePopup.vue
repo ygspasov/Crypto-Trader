@@ -67,7 +67,7 @@
                   >
                   <v-col cols="6">
                     <p>
-                      {{ tradedCryptoPortfolioBalance }}
+                      {{ tradedCryptoPortfolioAmount }}
                     </p></v-col
                   ></v-row
                 >
@@ -124,21 +124,20 @@ export default {
       snackbar: false,
       accountMessage: ``,
       portfolio: store.singleTraderPortfolio,
-      tradedCryptoPortfolioBalance: 0,
+      tradedCryptoPortfolioAmount: 0,
     };
   },
   methods: {
     buyingCrypto() {
-      this.loadBalance(this.itemName);
       const currency = this.selectAccount.currency;
       if (!this.store.singleTraderAccounts) {
         this.accountMessage = `You don't have an account. You should first open one.`;
         this.snackbar = true;
-        return false;
+        return;
       } else if (!this.store.singleTraderAccounts[currency]) {
         this.accountMessage = `No account in ${currency}. You should first open one.`;
         this.snackbar = !this.snackbar;
-        return false;
+        return;
       } else if (
         this.store.singleTraderAccounts[currency].amount <
         this.price * this.amount
@@ -146,9 +145,17 @@ export default {
         this.accountMessage =
           "You don't have enough money. Consider a deposit.";
         this.snackbar = !this.snackbar;
-        return false;
+        return;
+      } else if (
+        this.amount > Number(this.tradedCryptoPortfolioAmount) &&
+        this.select.operation === 'Sell'
+      ) {
+        this.accountMessage = `Not enough ${this.itemName} in portfolio.`;
+        this.snackbar = !this.snackbar;
+        return;
       } else {
-        this.accountMessage = 'Purchase successful.';
+        const action = this.select.operation === 'Buy' ? 'Purchased' : 'Sold';
+        this.accountMessage = `${action} ${this.amount} ${this.itemName}.`;
         this.snackbar = !this.snackbar;
       }
       let oldBalance = this.store.singleTraderAccounts[currency].amount;
@@ -162,12 +169,13 @@ export default {
         this.select.operation
       );
       this.amount = 0;
+      this.tradedCryptoPortfolioAmount = 0;
     },
+    //Loads portfolio balance of traded item.
     loadBalance(itemName) {
       this.portfolio = this.store.singleTraderPortfolio;
       let crypto = this.portfolio.find(item => item.cryptoName === itemName);
-      this.tradedCryptoPortfolioBalance = crypto.amount;
-      console.log(this.tradedCryptoPortfolioBalance);
+      this.tradedCryptoPortfolioAmount = crypto.amount;
     },
   },
   computed: {

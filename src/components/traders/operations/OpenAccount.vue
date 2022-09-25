@@ -79,8 +79,8 @@ export default {
       numberRules: [
         v => !!v || 'Number is required',
         v =>
-          (v && v.length >= 3 && v.length <= 10) ||
-          'The number must be between 3 and 10 characters',
+          (v && v.length >= 3 && v.length <= 10 && v >= 100) ||
+          'The number must be between 3 and 10 characters long, and at least 100 USD/EUR.',
       ],
       currencyRules: [v => !!v || 'Item is required'],
       select: null,

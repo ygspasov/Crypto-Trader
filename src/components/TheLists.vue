@@ -205,6 +205,7 @@ export default {
     setTimeout(() => {
       this.alertSignedUp = false;
     }, 4000);
+    this.store.loadSingleTraderPortfolio();
   },
   computed: {
     numberOfPages() {

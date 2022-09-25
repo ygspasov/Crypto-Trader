@@ -3,7 +3,11 @@
     <v-col cols="auto">
       <v-dialog transition="dialog-bottom-transition" max-width="600">
         <template v-slot:activator="{ on, attrs }">
-          <v-btn color="secondary" v-bind="attrs" v-on="on"
+          <v-btn
+            color="secondary"
+            v-bind="attrs"
+            v-on="on"
+            @click="loadBalance(itemName)"
             >Trade {{ itemName }}</v-btn
           >
         </template>
@@ -57,6 +61,16 @@
                       required
                     ></v-text-field></v-row
                 ></v-col>
+                <v-row mt-10>
+                  <v-col cols="6">
+                    <h3>{{ itemName }} in portfolio:</h3></v-col
+                  >
+                  <v-col cols="6">
+                    <p>
+                      {{ tradedCryptoPortfolioBalance }}
+                    </p></v-col
+                  ></v-row
+                >
                 <v-col cols="12" class="mt-10">
                   <v-btn
                     depressed
@@ -109,10 +123,13 @@ export default {
       amount: 0,
       snackbar: false,
       accountMessage: ``,
+      portfolio: store.singleTraderPortfolio,
+      tradedCryptoPortfolioBalance: 0,
     };
   },
   methods: {
     buyingCrypto() {
+      this.loadBalance(this.itemName);
       const currency = this.selectAccount.currency;
       if (!this.store.singleTraderAccounts) {
         this.accountMessage = `You don't have an account. You should first open one.`;
@@ -146,6 +163,12 @@ export default {
       );
       this.amount = 0;
     },
+    loadBalance(itemName) {
+      this.portfolio = this.store.singleTraderPortfolio;
+      let crypto = this.portfolio.find(item => item.cryptoName === itemName);
+      this.tradedCryptoPortfolioBalance = crypto.amount;
+      console.log(this.tradedCryptoPortfolioBalance);
+    },
   },
   computed: {
     checkAmount() {
@@ -154,6 +177,7 @@ export default {
   },
   created() {
     this.store.loadSingleTraderAccounts(this.userId);
+    this.store.loadSingleTraderPortfolio();
   },
 };
 </script>

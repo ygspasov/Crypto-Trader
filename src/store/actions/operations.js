@@ -158,7 +158,6 @@ export default {
   //Load single trader portfolio
   loadSingleTraderPortfolio() {
     const userId = this.traderUid;
-    console.log('userId ', userId);
     const singleTraderPurchases = ref(
       db,
       '/traders/' + userId + '/accounts/portfolio/'
@@ -183,7 +182,6 @@ export default {
         }, {})
       );
       this.singleTraderPortfolio = result;
-      console.log('singleTraderPortfolio: ', this.singleTraderPortfolio);
     });
   },
 };

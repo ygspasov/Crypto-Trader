@@ -49,7 +49,7 @@ export default {
     return { store };
   },
   created() {
-    // this.store.autoLogin();
+    this.store.autoLogin();
     this.store.loadTraders();
   },
 };

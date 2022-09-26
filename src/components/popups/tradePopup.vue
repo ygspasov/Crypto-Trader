@@ -185,7 +185,7 @@ export default {
     loadBalance(itemName) {
       this.portfolio = this.store.singleTraderPortfolio;
       let crypto = this.portfolio.find(item => item.cryptoName === itemName);
-      this.tradedCryptoPortfolioAmount = crypto.amount;
+      if (crypto) this.tradedCryptoPortfolioAmount = crypto.amount;
     },
     hasAccount() {
       return this.store.getHasAccount;

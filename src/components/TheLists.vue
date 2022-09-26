@@ -218,12 +218,10 @@ export default {
       return this.store.isAuthenticated;
     },
     authMessage() {
-      return this.store.isAuthenticated ? 'Signed in' : 'Not signed in';
+      return this.store.isAuthenticated ? 'Signed in.' : 'Not signed in.';
     },
     isSignedUpMessage() {
-      return this.store.signedUp
-        ? 'Successfully signed up. A new user account has been created'
-        : '';
+      return this.store.signedUp ? 'Signed up.' : '';
     },
     traderUid() {
       return this.store.getTraderUid;

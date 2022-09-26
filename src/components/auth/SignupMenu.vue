@@ -32,6 +32,14 @@
         type="password"
         required
       ></v-text-field>
+      <v-text-field
+        v-model="confirmPassword"
+        :rules="confirmPasswordRules"
+        :counter="10"
+        label="Confirm password"
+        type="password"
+        required
+      ></v-text-field>
       <v-btn :disabled="!valid || !email" depressed class="mr-4" @click="submit"
         >submit
       </v-btn>
@@ -68,11 +76,16 @@ export default {
         v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
       ],
       password: '',
+      confirmPassword: '',
       passwordRules: [
         v => !!v || 'Password is required',
         v =>
           (v && v.length >= 7 && v.length <= 20) ||
           'Password must be between 7 and 20 characters.',
+      ],
+      confirmPasswordRules: [
+        v => !!v || 'type confirm password',
+        v => v === this.password || "Passwords don't match.",
       ],
     };
   },

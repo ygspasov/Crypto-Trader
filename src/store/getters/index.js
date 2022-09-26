@@ -13,7 +13,8 @@ export default {
   getTraderEmail: state => state.traderEmail,
   getTraderUid: state => state.traderUid,
   getSingleTraderAccounts: state => state.getSingleTraderAccounts,
-  getHasAccount: state => state.singleTraderAccounts.length > 0,
+  getHasAccount: state =>
+    state.singleTraderAccounts.USD || state.singleTraderAccounts.EUR,
   getSingleTraderUSDAccount: state =>
     state.singleTraderAccounts.USD || 'No account in USD',
   getSingleTraderEURAccount: state =>

@@ -8,7 +8,16 @@
             v-bind="attrs"
             v-on="on"
             @click="loadBalance(itemName)"
+            v-if="hasAccount()"
             >Trade {{ itemName }}</v-btn
+          >
+          <v-btn
+            v-else
+            color="secondary"
+            v-bind="attrs"
+            v-on="on"
+            @click="$router.push(accountLink)"
+            >Open an account to trade</v-btn
           >
         </template>
         <template v-slot:default="dialog">
@@ -125,6 +134,7 @@ export default {
       accountMessage: ``,
       portfolio: store.singleTraderPortfolio,
       tradedCryptoPortfolioAmount: 0,
+      accountLink: `./${this.userId}/balance`,
     };
   },
   methods: {
@@ -176,6 +186,9 @@ export default {
       this.portfolio = this.store.singleTraderPortfolio;
       let crypto = this.portfolio.find(item => item.cryptoName === itemName);
       this.tradedCryptoPortfolioAmount = crypto.amount;
+    },
+    hasAccount() {
+      return this.store.getHasAccount;
     },
   },
   computed: {

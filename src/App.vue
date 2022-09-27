@@ -3,6 +3,13 @@
     <v-main>
       <router-view />
     </v-main>
+    <v-footer app>
+      <v-container fluid
+        ><v-row
+          ><a>Crypto Market Cap & Pricing Data Provided By Nomics </a></v-row
+        ></v-container
+      >
+    </v-footer>
   </v-app>
 </template>
 
@@ -21,3 +28,9 @@ export default {
   },
 };
 </script>
+<style scoped>
+a {
+  margin: 0 auto;
+  color: #424242;
+}
+</style>

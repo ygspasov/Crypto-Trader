@@ -2,7 +2,7 @@
   <v-container fluid v-if="isAuthenticated">
     <the-header></the-header>
     <h2 class="font-weight-light d-flex justify-center mb-6">
-      Welcome {{ traderName }}!
+      Welcome, {{ traderName }}!
     </h2>
     <the-operations :store="store"></the-operations>
   </v-container>

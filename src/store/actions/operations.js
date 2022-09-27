@@ -104,15 +104,6 @@ export default {
   //Debit ot credit a trader account
   updateTraderAccount(userId, currency, amount, price, oldBalance, opType) {
     const updates = {};
-    console.log(
-      'updateTraderAccount:',
-      userId,
-      currency,
-      amount,
-      price,
-      oldBalance,
-      opType
-    );
     //Exchanging the EUR into USD
     if (currency === 'EUR') amount = amount * 0.998578;
     //Recalculating the trader balance in accordance with the type of operation.

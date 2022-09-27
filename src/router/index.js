@@ -5,6 +5,7 @@ import LoginMenu from '../components/auth/LoginMenu.vue';
 import SignupMenu from '../components/auth/SignupMenu.vue';
 import Traders from '../components/traders/TheTraders.vue';
 import TraderDashboard from '../components/traders/TraderDashboard.vue';
+import PageNotFound from '../components/PageNotFound.vue';
 
 Vue.use(VueRouter);
 
@@ -33,6 +34,11 @@ const routes = [
     path: '/:id/balance/',
     name: 'trader balance',
     component: TraderDashboard,
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'not-found',
+    component: PageNotFound,
   },
 ];
 

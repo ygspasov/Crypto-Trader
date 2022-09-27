@@ -38,7 +38,6 @@ export default {
   created() {
     this.traderUid = this.store.traderUid;
     this.store.loadSingleTraderPurchases(this.traderUid);
-    console.log(this.store.singleTraderPurchases);
   },
 };
 </script>

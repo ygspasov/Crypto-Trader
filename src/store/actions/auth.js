@@ -43,11 +43,7 @@ export default {
     createUserWithEmailAndPassword(auth, email, password)
       .then(userCredential => {
         // Signed in
-        const user = userCredential.user;
         const uid = userCredential.user.uid;
-        console.log('userCredential: ', userCredential);
-        console.log('uid ', uid);
-        console.log('accessToken ', user.accessToken);
         this.createTrader(uid, name, email);
         this.signedUp = true;
       })
@@ -70,7 +66,6 @@ export default {
     const auth = getAuth();
     signOut(auth)
       .then(() => {
-        console.log('Sign-out successful');
         this.accessToken = '';
         localStorage.removeItem('token');
         localStorage.removeItem('uid');

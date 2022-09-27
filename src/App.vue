@@ -6,7 +6,9 @@
     <v-footer app>
       <v-container fluid
         ><v-row
-          ><a>Crypto Market Cap & Pricing Data Provided By Nomics </a></v-row
+          ><a href="https://nomics.com/"
+            >Crypto Market Cap & Pricing Data Provided By Nomics
+          </a></v-row
         ></v-container
       >
     </v-footer>
@@ -29,7 +31,7 @@ export default {
 };
 </script>
 <style scoped>
-a {
+.v-application a {
   margin: 0 auto;
   color: #424242;
 }

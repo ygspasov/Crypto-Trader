@@ -1,33 +1,41 @@
 # Crypto Trader
 
 > A VueJS application for trading cryptocurrencies.
-> Live demo [_here_](https://crypto-trader-43311.web.app/).
+> The live project: [_here_](https://crypto-trader-43311.web.app/)
 
 ## Table of Contents
 
 - [General Info](#general-information)
 - [Technologies Used](#technologies-used)
 - [Features](#features)
+- [Reporting](#reporting)
 - [Setup](#setup)
 - [Usage](#usage)
 
 ## General Information
 
-The project serves as a platform for trading cryptocurrencies. It is only meant as a portfolio project and while the cryptocurrency data it displays is real and is updated in real time, the money and the trade operations that take place are fake. To that end, of course, there is no payment system integrated. Anyone is free to deposit as much money in USD and EUR as he wishes. If you're short on money and can't conduct certain operation, just deposit more.
+The project serves as a platform for trading cryptocurrencies. It is only meant as a portfolio project and while the cryptocurrency data it displays is real and is updated in real time, the money and the trade operations that take place are not. To that end, of course, there is no payment system integrated. Anyone is free to deposit as much money in USD and/or EUR as he wishes. If you're short on money and can't conduct certain operation, just deposit more.
 
-The cryptocurrency data for the project is provided from [_Nomics_] (https://nomics.com/) - the largest crypto index.
+The app is hosted on Firebase.
+
+The cryptocurrency data for the project is provided by [_Nomics_](https://nomics.com/) - the largest crypto index.
 
 ![Main screenshot](./img/main.jpg)
 
 ## Technologies Used
 
 [VueJS](https://vuejs.org/) -the progressive JavaScript framework
+
 [Vue Router](https://router.vuejs.org/) - the official router for VueJS
+
 [Vuetify](https://vuetifyjs.com/en/) - a Vue UI Library
+
 [Pinia](https://pinia.vuejs.org/) - the official store library for Vue
+
 [Firebase](https://firebase.google.com/) - an app development platform
-[moment](https://momentjs.com/) - a JavaScript library for parsing, validating, manipulating and displaying date/time
-[uniqid](https://www.npmjs.com/package/uniqid) - a unique ID generator
+
+[MomentJS](https://momentjs.com/) - a JavaScript library for parsing, validating, manipulating and displaying date/time
+[Uniqid](https://www.npmjs.com/package/uniqid) - a unique ID generator
 
 ## Features
 
@@ -45,22 +53,46 @@ The cryptocurrency data for the project is provided from [_Nomics_] (https://nom
 
 - Sorting and searching:
 
-  Apart from searching and visualising only the cryptocurrencies of your interest, you can also sort them by any of the fields a single cryptocurrency presents as seen on the screenshot:
+  Apart from searching and visualizing only the cryptocurrencies of your interest, you can also sort them by any of the fields a single cryptocurrency presents as seen on the screenshot:
 
   ![Sort and search](./img/sort.jpg)
 
 - Trading:
 
-  Each cryptocurrency comes with a button that opens a trade popup window. It allows you to choose the type of operation you would like to conduct (Buy/Sell) will that crypto and the account you would like to use for the operation (USD/EUR).
+  Each cryptocurrency comes with a button that opens a trade popup window. It allows you to choose the type of operation you would like to conduct (Buy/Sell) with that crypto and the account you would like to use for the operation (USD/EUR).
 
-  On successful operation, you see a message indicating how much crypto of the certain type you have purchased. Otherwise, you receive a warning that something has gone wrong as it is in the case below and the trade action is cancelled. In this example, you see that the amount of Bitcoin you try to sell (11) exceeds the amount you currently have in your portfolio (12). Another reason for a trade operaion to be cancelled could be that you don't have the money in your USD or EUR account to conduct it or you simply don't have an open account in that particular currency. In either case, a warning will appear, notifying you exactly what has gone wrong.
+  On successful operation, you see a message indicating how much crypto of the certain type you have purchased. Otherwise, you receive a warning that something has gone wrong as it is in the case below and the trade action is cancelled. In this example, you see that the amount of Bitcoin you try to sell (11) exceeds the amount you currently have in your portfolio (12). Another reason for a trade operation to be cancelled could be that you don't have the money in your USD or EUR account to conduct it or you simply don't have an open account in that particular currency. In either case, a warning will appear, notifying you exactly what has gone wrong.
 
-  Every successful trade operation updates both the account you've chosen for the trade and the amount of crypto in your portfolio. Reports of past trade operations are also available as you will see later.
+  A successful trade operation will update both the account you've chosen for the trade and the amount of crypto in your portfolio. Reports of past trade operations are also available.
 
   ![Trading](./img/tradepopup.jpg)
 
+## Reporting
+
+It is based on the trade operations and consists of two types:
+
+- Trade operations
+  Each purchase or sale results in a trade operation consisting of the type of crypto being sold, the amount, the type of operation, the price, a unique id that serves as a transaction reference and so on. The data saved/read from Firebase is conviniently presented in the table below:
+
+![Trade operations](./img/tradepopup.jpg)
+
+- Portfolio
+  Portfolio reports present a smaller table consisting only of the type of crypto available in the trader's portfolio and the quantity against it:
+
+![Portfolio](./img/portfolio.jpg)
+
+Both reports are instantly updated after a successful trade operation.
+
 ## Setup
+
+- To install dependencies:
+
+`npm run install`
+
+- To run the project locally:
+
+`npm run serve`
 
 ## Usage
 
-`code`
+The usage is simple and straightforward. You sign up and sign in from the hamburger menu in the top left corner. Then, you go for opening accounts in USD and EUR, and continue with trade operations as seen on the screenshots.

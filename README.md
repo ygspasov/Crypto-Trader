@@ -32,9 +32,10 @@ The cryptocurrency data for the project is provided by [_Nomics_](https://nomics
 
 [Pinia](https://pinia.vuejs.org/) - the official store library for Vue
 
-[Firebase](https://firebase.google.com/) - an app development platform
+[Firebase](https://firebase.google.com/) - an app development and hosting platform
 
 [MomentJS](https://momentjs.com/) - a JavaScript library for parsing, validating, manipulating and displaying date/time
+
 [Uniqid](https://www.npmjs.com/package/uniqid) - a unique ID generator
 
 ## Features
@@ -72,11 +73,13 @@ The cryptocurrency data for the project is provided by [_Nomics_](https://nomics
 It is based on the trade operations and consists of two types:
 
 - Trade operations
+
   Each purchase or sale results in a trade operation consisting of the type of crypto being sold, the amount, the type of operation, the price, a unique id that serves as a transaction reference and so on. The data saved/read from Firebase is conviniently presented in the table below:
 
-![Trade operations](./img/tradepopup.jpg)
+![Trade operations](./img/trades.jpg)
 
 - Portfolio
+
   Portfolio reports present a smaller table consisting only of the type of crypto available in the trader's portfolio and the quantity against it:
 
 ![Portfolio](./img/portfolio.jpg)

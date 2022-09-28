@@ -13,9 +13,9 @@
 
 ## General Information
 
-The project serves as a platform for trading cryptocurrencies. It is only meant as a portfolio project and while the cryptocurrency data it displays is real and is updated in real time, the money and the trade operations that take place are fake. To that end, ofcourse, there is no payment system integrated. Anyone is free to deposit as much money in USD and EUR as he wishes. If you're short on money and can't conduct certain operation, just deposit more.
+The project serves as a platform for trading cryptocurrencies. It is only meant as a portfolio project and while the cryptocurrency data it displays is real and is updated in real time, the money and the trade operations that take place are fake. To that end, of course, there is no payment system integrated. Anyone is free to deposit as much money in USD and EUR as he wishes. If you're short on money and can't conduct certain operation, just deposit more.
 
-The cryptocurrency data for the project is provided from [Nomics] (https://nomics.com/) - the largest crypto index.
+The cryptocurrency data for the project is provided from [_Nomics_] (https://nomics.com/) - the largest crypto index.
 
 ![Main screenshot](./img/main.jpg)
 
@@ -31,17 +31,33 @@ The cryptocurrency data for the project is provided from [Nomics] (https://nomic
 
 ## Features
 
-List the ready features here:
-
 - Opening an account:
+
   You can open an account in either USD or EUR. If you already have an account in the currency you're currently trying to open an account in, you receive a warning, as seen on the screenshot below, and the action is canceled.
+
   ![Open account](./img/openaccount.jpg)
-- Deposit money:
+
+- Depositing money:
+
   If you already have an existing account, you can deposit money in that account's currency. Otherwise, a popup will prompt you that you must open an account, and the action will be canceled:
+
   ![Deposit money](./img/deposit.jpg)
-- Sort and search:
+
+- Sorting and searching:
+
   Apart from searching and visualising only the cryptocurrencies of your interest, you can also sort them by any of the fields a single cryptocurrency presents as seen on the screenshot:
+
   ![Sort and search](./img/sort.jpg)
+
+- Trading:
+
+  Each cryptocurrency comes with a button that opens a trade popup window. It allows you to choose the type of operation you would like to conduct (Buy/Sell) will that crypto and the account you would like to use for the operation (USD/EUR).
+
+  On successful operation, you see a message indicating how much crypto of the certain type you have purchased. Otherwise, you receive a warning that something has gone wrong as it is in the case below and the trade action is cancelled. In this example, you see that the amount of Bitcoin you try to sell (11) exceeds the amount you currently have in your portfolio (12). Another reason for a trade operaion to be cancelled could be that you don't have the money in your USD or EUR account to conduct it or you simply don't have an open account in that particular currency. In either case, a warning will appear, notifying you exactly what has gone wrong.
+
+  Every successful trade operation updates both the account you've chosen for the trade and the amount of crypto in your portfolio. Reports of past trade operations are also available as you will see later.
+
+  ![Trading](./img/tradepopup.jpg)
 
 ## Setup
 

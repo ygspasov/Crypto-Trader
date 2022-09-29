@@ -25,17 +25,17 @@ The cryptocurrency data for the project is provided by [_Nomics_](https://nomics
 
 ## Technologies Used
 
-[VueJS](https://vuejs.org/) -the progressive JavaScript framework
+[VueJS](https://vuejs.org/) - the progressive JavaScript framework
 
 [Vue Router](https://router.vuejs.org/) - the official router for VueJS
 
-[Vuetify](https://vuetifyjs.com/en/) - a Vue UI Library
+[Vuetify](https://vuetifyjs.com/en/) - a VueJS UI Library
 
-[Pinia](https://pinia.vuejs.org/) - the official store library for Vue
+[Pinia](https://pinia.vuejs.org/) - the official store library for VueJS
 
 [Firebase](https://firebase.google.com/) - an app development and hosting platform
 
-[MomentJS](https://momentjs.com/) - a JavaScript library for parsing, validating, manipulating and displaying date/time
+[MomentJS](https://momentjs.com/) - a JavaScript library for parsing, validating, manipulating and displaying dates/times
 
 [Uniqid](https://www.npmjs.com/package/uniqid) - a unique ID generator
 
@@ -63,7 +63,7 @@ The cryptocurrency data for the project is provided by [_Nomics_](https://nomics
 
   Each cryptocurrency comes with a button that opens a trade popup window. It allows you to choose the type of operation you would like to conduct (Buy/Sell) with that crypto and the account you would like to use for the operation (USD/EUR).
 
-  On successful operation, you see a message indicating how much crypto of the certain type you have purchased. Otherwise, you receive a warning that something has gone wrong as it is in the case below and the trade action is cancelled. In this example, you see that the amount of Bitcoin you try to sell (11) exceeds the amount you currently have in your portfolio (12). Another reason for a trade operation to be cancelled could be that you don't have the money in your USD or EUR account to conduct it or you simply don't have an open account in that particular currency. In either case, a warning will appear, notifying you exactly what has gone wrong.
+  On successful operation, you see a message indicating how much crypto of the certain type you have purchased. Otherwise, you receive a warning that something has gone wrong as it is in the case below and the trade action is cancelled. In this example, you see that the amount of Bitcoin you try to sell (12) exceeds the amount you currently have in your portfolio (11). Another reason for a trade operation to be cancelled could be that you don't have the money in your USD or EUR account to conduct it or you simply don't have an open account in that particular currency. In either case, a warning will appear, notifying you exactly what has gone wrong.
 
   A successful trade operation will update both the account you've chosen for the trade and the amount of crypto in your portfolio. Reports of past trade operations are also available.
 
@@ -71,7 +71,7 @@ The cryptocurrency data for the project is provided by [_Nomics_](https://nomics
 
 ## Reporting
 
-It is based on the trade operations and consists of two types:
+It is based on the trade operations and consists of two types of reports:
 
 - Trade operations
 
@@ -89,7 +89,7 @@ Both reports are instantly updated after a successful trade operation.
 
 ## Authentication
 
-The application uses Firebase authentications and Vuetify form validation:
+The application uses Firebase authentication and Vuetify form validation:
 
 ![Authentication](./img/authentication.jpg)
 

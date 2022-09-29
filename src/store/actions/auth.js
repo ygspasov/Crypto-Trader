@@ -18,7 +18,6 @@ export default {
   signInUser(data) {
     const email = data.email;
     const password = data.password;
-    // const auth = getAuth();
     this.traderEmail = email;
     signInWithEmailAndPassword(auth, email, password)
       .then(userCredential => {

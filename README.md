@@ -9,6 +9,7 @@
 - [Technologies Used](#technologies-used)
 - [Features](#features)
 - [Reporting](#reporting)
+- [Authentication](#authentication)
 - [Setup](#setup)
 - [Usage](#usage)
 
@@ -85,6 +86,16 @@ It is based on the trade operations and consists of two types:
 ![Portfolio](./img/portfolio.jpg)
 
 Both reports are instantly updated after a successful trade operation.
+
+## Authentication
+
+The application uses Firebase authentications and Vuetify form validation:
+
+![Authentication](./img/authentication.jpg)
+
+Trading and dashboard access is only available to signed in users.
+
+Individual trader's login credentials are also stored in his browser so that he can automatically login after browser refresh or even pc restart without the need to manually sign in.
 
 ## Setup
 
